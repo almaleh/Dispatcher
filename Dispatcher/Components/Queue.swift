@@ -19,7 +19,7 @@ enum QueueType: String, CaseIterable {
         case .main: return .green
         case .global: return .purple
         case .privateSerial: return .blue
-        case .privateConcurrent: return .red
+        case .privateConcurrent: return Color(red: 157/255, green: 187/255, blue: 174/255)
         }
     }
 }
@@ -60,7 +60,8 @@ struct Queue: View {
         .frame(maxWidth: width * CGFloat(threads))
         .frame(minWidth: width)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            let threadsDelay = 0.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + threadsDelay) {
                 self.showThreads = true
             }
         }

@@ -14,7 +14,8 @@ struct WorkBlock: View {
     @State private var progress: CGFloat = 1.0
     @State private var borderOpacity: Double = 1.0
     @State private var scale: CGFloat = 0.5
-    private let taskDuration: Double = 3.0
+    
+    private let taskDuration: Double
     private let color: Color
     private let possibleBlockColors: [Color] = [.purple]
     private let isCollapsing: Bool
@@ -24,7 +25,6 @@ struct WorkBlock: View {
         return color
             .frame(width: 60, height: 150 * progress)
             .border(Color.yellow.opacity(borderOpacity), width: 3)
-            .padding(.top)
             .scaleEffect(scale)
             .onAppear {
                 self.startTask()
@@ -34,15 +34,14 @@ struct WorkBlock: View {
         }
     }
     
-    init (isCollapsing: Bool) {
-        self.color = possibleBlockColors.randomElement() ?? .red
+    init (isCollapsing: Bool, duration: Double, color: Color) {
+        self.color = color
         self.isCollapsing = isCollapsing
+        self.taskDuration = duration
     }
     
     func startTask() {
-        guard isCollapsing else { return }
-        
-        let startDelay = 1.5
+        let startDelay = isCollapsing ? 1.5 : 2.0 + taskDuration
         
         withAnimation(Animation
             .linear(duration: self.taskDuration)
@@ -59,6 +58,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(isCollapsing: true)
+        WorkBlock(isCollapsing: true, duration: 3.0, color: .red)
     }
 }

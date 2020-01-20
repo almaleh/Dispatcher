@@ -39,7 +39,6 @@ struct Thread: View {
                 VStack (alignment: .center) {
                     ForEach(0..<workTasks.count, id: \.self) { idx in
                         self.getTask(at: idx)
-                            .padding([.top, .bottom], 5)
                             .opacity(self.taskOpacity)
                             .onAppear {
                                 withAnimation(.default) {
@@ -58,13 +57,25 @@ struct Thread: View {
     }
     
     func addTasksForType(_ type: QueueType) {
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        
+        let otherDuration = 5.0
+        let mainDuration = otherDuration + 0.7
+        
+        let first = Task.statement(Statement(type: .sync, duration: mainDuration))
+        let second = Task.statement(Statement(type: .async, duration: mainDuration + 1.4))
+        
+        let otherFirst = Task.workBlock(WorkBlock(isCollapsing: true, duration: otherDuration, color: .red))
+        let otherSecond = Task.workBlock(WorkBlock(isCollapsing: false, duration: otherDuration + 0.5, color: .blue))
+        
+        let delay: Double = type == .main ? 2.0 : 1.0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             switch type {
             case .main:
-                self.workTasks.append(.workBlock(WorkBlock(isCollapsing: true)))
-//                self.workTasks.append(.statement(Statement(type: .sync)))
-            default: break
+                self.workTasks = [first, second]
+                
+            default:
+                self.workTasks = [otherFirst, otherSecond]
             }
         }
     }

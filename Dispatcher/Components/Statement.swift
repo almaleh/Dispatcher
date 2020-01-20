@@ -31,29 +31,35 @@ struct Statement: View {
     @State private var currentOpacity = 1.0
     @State private var isPulsing = true
     
+    private let statementDuration: Double
+    
     var body: some View {
         Group {
-            if isPulsing == false {
-                baseStatement
-            } else {
-                baseStatement
-                    .overlay(
-                        Capsule()
-                            .stroke(type.color)
-                            .scaleEffect(ringScale)
-                            .opacity(Double(2 - ringScale))
-                            .animation(
-                                type == .sync ?
-                                    Animation.easeOut(duration: 0.8)
-                                        .repeatCount(5, autoreverses: false)
-                                    : nil)
-                )
+            if currentOpacity > 0 {
+                if isPulsing == false {
+                    baseStatement
+                } else {
+                    baseStatement
+                        .overlay(
+                            Capsule()
+                                .stroke(type.color)
+                                .scaleEffect(ringScale)
+                                .opacity(Double(2 - ringScale))
+                                .animation(
+                                    type == .sync ?
+                                        Animation.easeOut(duration: 1.0)
+                                            .repeatCount(Int(statementDuration), autoreverses: false)
+                                        : nil)
+                    )
+                }
             }
         }
+        .padding([.top, .bottom], 20)
         .onAppear(perform: {
             self.startPulsing()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() +
+                self.statementDuration) {
                 self.disappear()
             }
         })
@@ -69,19 +75,26 @@ struct Statement: View {
             .animation(.default)
     }
     
+    init(type: DispatchType, duration: Double) {
+        self.type = type
+        self.statementDuration = duration
+    }
+    
     func startPulsing() {
         self.ringScale = 2.0
         self.isPulsing = true
     }
     
     func disappear() {
-        self.isPulsing = false
-        self.currentOpacity = 0.0
+        withAnimation(.easeOut(duration: 0.6)) {
+            self.isPulsing = false
+            self.currentOpacity = 0.0
+        }
     }
 }
 
 struct Statement_Previews: PreviewProvider {
     static var previews: some View {
-        Statement(type: .async)
+        Statement(type: .sync, duration: 0.5)
     }
 }

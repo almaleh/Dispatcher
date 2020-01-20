@@ -15,7 +15,6 @@ struct Scheduler: View {
     
     @State private var mainThreads = 1
     @State private var otherThreads = 0
-    
     @State private var workItem: DispatchWorkItem?
     
     @Binding var didStart: Bool
@@ -67,7 +66,7 @@ struct Scheduler: View {
         let workItem = DispatchWorkItem {
             self.otherThreads = 1
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: workItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
         self.workItem = workItem
     }
 }

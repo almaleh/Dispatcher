@@ -55,11 +55,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		280E905123D564CF00DF8EF4 /* Test Views */ = {
+			isa = PBXGroup;
+			children = (
+				280E904F23D5391400DF8EF4 /* ViewTest.swift */,
+			);
+			path = "Test Views";
+			sourceTree = "<group>";
+		};
 		2834C13223D4BA9200347C96 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				2834C12C23D299A900347C96 /* Queue.swift */,
-				280E904F23D5391400DF8EF4 /* ViewTest.swift */,
 				2834C12E23D2A23600347C96 /* Thread.swift */,
 				280E904923D4CAD800DF8EF4 /* WorkBlock.swift */,
 				280E904B23D4E17F00DF8EF4 /* Statement.swift */,
@@ -90,6 +97,7 @@
 				28E641A823D16D3900C7A860 /* Main Content */,
 				2834C13223D4BA9200347C96 /* Components */,
 				28E641A923D16D4800C7A860 /* Supporting Views */,
+				280E905123D564CF00DF8EF4 /* Test Views */,
 				28E6419823D1699100C7A860 /* Assets.xcassets */,
 				28E6419D23D1699100C7A860 /* LaunchScreen.storyboard */,
 				28E641A023D1699100C7A860 /* Info.plist */,

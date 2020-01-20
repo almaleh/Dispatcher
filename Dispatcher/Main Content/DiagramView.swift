@@ -26,11 +26,12 @@ struct DiagramView: View {
     @State private var topic = 0
     @State private var didStart = false
     var startButtonText: String {
-        didStart ? "Stop" : "Start"
+        didStart ? "Restart" : "Start"
     }
     
     var startButtonImage: String {
-        didStart ? "stop.circle.fill" : "play.circle.fill"
+//        didStart ? "stop.circle.fill" : "play.circle.fill"
+        "play.circle.fill"
     }
     
     let spacing: CGFloat = 25
