@@ -31,29 +31,44 @@ enum Task {
 
 struct Queue: View {
     
+    let topic: Topic
     let type: QueueType
-    var threads: Int
+    
+    private let width: CGFloat = 110.0
+    @Binding var threads: Int
+    @State private var showThreads = false
     
     var body: some View {
         VStack {
             Text(type.rawValue)
+                .frame(maxHeight: 15)
+                .frame(minWidth: width + 40.0)
             ZStack {
                 type.color
                     .clipShape(Rectangle())
                     .opacity(0.6)
-                HStack {
-                    ForEach(0..<threads, id: \.self) { num in
-                        Thread(type: self.type)
+                    .frame(minWidth: width)
+                if type == .main || showThreads {
+                    HStack {
+                        ForEach(0..<threads, id: \.self) { num in
+                            Thread(topic: self.topic, type: self.type)
+                        }
                     }
                 }
             }
         }
-        .frame(maxWidth: 110 * CGFloat(threads))
+        .frame(maxWidth: width * CGFloat(threads))
+        .frame(minWidth: width)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.showThreads = true
+            }
+        }
     }
 }
 
 struct Queue_Previews: PreviewProvider {
     static var previews: some View {
-        Queue(type: .privateConcurrent, threads: 1)
+        Queue(topic: .sync, type: .main, threads: .constant(1))
     }
 }

@@ -23,13 +23,14 @@ struct WorkBlock: View {
     var body: some View {
         return color
             .frame(width: 60, height: 150 * progress)
-            .border(Color.yellow.opacity(borderOpacity), width: 4)
+            .border(Color.yellow.opacity(borderOpacity), width: 3)
             .padding(.top)
             .scaleEffect(scale)
-            .animation(.default)
             .onAppear {
                 self.startTask()
-                self.scale = 1.0
+                withAnimation(.easeOut(duration: 0.3)) {
+                    self.scale = 1.0
+                }
         }
     }
     
@@ -41,13 +42,16 @@ struct WorkBlock: View {
     func startTask() {
         guard isCollapsing else { return }
         
+        let startDelay = 1.5
+        
         withAnimation(Animation
-            .linear(duration: self.taskDuration)) {
+            .linear(duration: self.taskDuration)
+            .delay(startDelay)) {
             self.progress = 0.0
         }
         withAnimation(Animation
             .linear(duration: self.taskDuration / 4)
-            .delay(3 * self.taskDuration / 4)) {
+            .delay(startDelay + (3 * self.taskDuration / 4))) {
             self.borderOpacity = 0.0
         }
     }
@@ -55,6 +59,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(isCollapsing: false)
+        WorkBlock(isCollapsing: true)
     }
 }

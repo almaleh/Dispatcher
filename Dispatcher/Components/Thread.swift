@@ -16,6 +16,7 @@ struct Thread: View {
     @State private var threadLength: CGFloat = 0.0
     @State private var taskOpacity = 0.0
     
+    let topic: Topic
     let type: QueueType
     
     var body: some View {
@@ -31,7 +32,7 @@ struct Thread: View {
             )
             ZStack (alignment: .top) {
                 WavyLine(threadLength: threadLength)
-                    .stroke(Color.yellow, lineWidth: 4)
+                    .stroke(Color.yellow, lineWidth: 3)
                     .animation(Animation
                         .easeInOut(duration: 1.5)
                         .delay(0.5))
@@ -40,9 +41,10 @@ struct Thread: View {
                         self.getTask(at: idx)
                             .padding([.top, .bottom], 5)
                             .opacity(self.taskOpacity)
-                            .animation(.default)
                             .onAppear {
-                                self.taskOpacity = 1.0
+                                withAnimation(.default) {
+                                    self.taskOpacity = 1.0
+                                }
                         }
                     }
                 }
@@ -50,9 +52,19 @@ struct Thread: View {
         }
         .padding(20)
         .onAppear {
-            self.unroll()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.workTasks.append(.workBlock(WorkBlock(isCollapsing: false)))
+            self.unrollThread()
+            self.addTasksForType(self.type)
+        }
+    }
+    
+    func addTasksForType(_ type: QueueType) {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            switch type {
+            case .main:
+                self.workTasks.append(.workBlock(WorkBlock(isCollapsing: true)))
+//                self.workTasks.append(.statement(Statement(type: .sync)))
+            default: break
             }
         }
     }
@@ -64,7 +76,7 @@ struct Thread: View {
         }
     }
     
-    func unroll() {
+    func unrollThread() {
         self.emojiOpacity = 1.0
         self.emojiScale = 1.0
         self.threadLength = 1
@@ -73,6 +85,6 @@ struct Thread: View {
 
 struct Thread_Previews: PreviewProvider {
     static var previews: some View {
-        Thread(type: .main)
+        Thread(topic: .sync, type: .main)
     }
 }
