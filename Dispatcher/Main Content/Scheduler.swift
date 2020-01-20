@@ -28,24 +28,28 @@ struct Scheduler: View {
         return Topic.allCases[self.topic]
     }
     
+    var mainTasks: [Task] {
+        return TaskGenerator.createSyncTasks()
+    }
+    
     var body: some View {
         HStack(spacing: spacing) {
             if currentTopic == .sync || currentTopic == .async {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: self.currentTopic, type: .main, threads: self.$mainThreads)
-                        : Queue(topic: self.currentTopic, type: .global, threads: self.$otherThreads)
+                    num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                        : Queue(topic: self.currentTopic, type: .global, tasks: self.mainTasks, threads: self.$otherThreads)
                 }
                 .id(UUID())
             } else if currentTopic == .serial {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: .serial, type: .main, threads: self.$mainThreads)
-                        : Queue(topic: .serial, type: .privateSerial, threads: self.$otherThreads)
+                    num == 0 ? Queue(topic: .serial, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                        : Queue(topic: .serial, type: .privateSerial, tasks: self.mainTasks, threads: self.$otherThreads)
                 }
                 .id(UUID())
             } else if currentTopic == .concurrent {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: .concurrent, type: .main, threads: self.$mainThreads)
-                        : Queue(topic: .concurrent, type: .privateConcurrent, threads: self.$otherThreads)
+                    num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                        : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.mainTasks, threads: self.$otherThreads)
                 }
                 .id(UUID())
             }

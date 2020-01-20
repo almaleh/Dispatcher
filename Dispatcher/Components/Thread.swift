@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Thread: View {
     
-    @State private var workTasks = [Task]()
+//    @State private var workTasks = [Task]()
     @State private var emojiOpacity: Double = 0.0
     @State private var emojiScale: CGFloat = 0.5
     @State private var threadLength: CGFloat = 0.0
@@ -18,6 +18,11 @@ struct Thread: View {
     
     let topic: Topic
     let type: QueueType
+    let tasks: [Task]
+    
+    init() {
+        // TODO filter tasks to appropriate/compatible, maybe at Queue level
+    }
     
     var body: some View {
         VStack {
@@ -37,7 +42,7 @@ struct Thread: View {
                         .easeInOut(duration: 1.5)
                         .delay(0.5))
                 VStack (alignment: .center) {
-                    ForEach(0..<workTasks.count, id: \.self) { idx in
+                    ForEach(0..<tasks.count, id: \.self) { idx in
                         self.getTask(at: idx)
                             .opacity(self.taskOpacity)
                             .onAppear {
@@ -52,38 +57,42 @@ struct Thread: View {
         .padding(20)
         .onAppear {
             self.unrollThread()
-            self.addTasksForType(self.type)
+//            self.addTasksForType(self.type)
         }
     }
     
-    func addTasksForType(_ type: QueueType) {
-        
-        let otherDuration = 5.0
-        let mainDuration = otherDuration + 0.7
-        
-        let first = Task.statement(Statement(type: .sync, duration: mainDuration))
-        let second = Task.statement(Statement(type: .async, duration: mainDuration + 1.4))
-        
-        let otherFirst = Task.workBlock(WorkBlock(isCollapsing: true, duration: otherDuration, color: .red))
-        let otherSecond = Task.workBlock(WorkBlock(isCollapsing: false, duration: otherDuration + 0.5, color: .blue))
-        
-        let delay: Double = type == .main ? 2.0 : 1.0
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            switch type {
-            case .main:
-                self.workTasks = [first, second]
-                
-            default:
-                self.workTasks = [otherFirst, otherSecond]
-            }
-        }
-    }
+//    func addTasksForType(_ type: QueueType) {
+//
+//        let otherDuration = 5.0
+//        let mainDuration = otherDuration + 0.7
+//
+//        let first = Task.statement(Statement(type: .sync, duration: mainDuration))
+//        let second = Task.statement(Statement(type: .async, duration: mainDuration + 1.4))
+//
+//        let otherFirst = Task.workBlock(WorkBlock(isCollapsing: true, duration: otherDuration, color: .red))
+//        let otherSecond = Task.workBlock(WorkBlock(isCollapsing: false, duration: otherDuration + 0.5, color: .blue))
+//
+//        let delay: Double = type == .main ? 2.0 : 1.0
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//            switch type {
+//            case .main:
+//                self.workTasks = [first, second]
+//
+//            default:
+//                self.workTasks = [otherFirst, otherSecond]
+//            }
+//        }
+//    }
     
     func getTask(at index: Int) -> AnyView {
-        switch workTasks[index] {
-        case .workBlock(let block): return AnyView(block)
-        case .statement(let statement): return AnyView(statement)
+        let task = tasks[index]
+        
+        switch task.type {
+        case .workBlock(let color):
+            return AnyView(WorkBlock(startTime: task.startTime, taskDuration: task.duration, color: color))
+        case .statement:
+            return AnyView(Statement(type: .async, duration: task.duration))
         }
     }
     
@@ -96,6 +105,6 @@ struct Thread: View {
 
 struct Thread_Previews: PreviewProvider {
     static var previews: some View {
-        Thread(topic: .sync, type: .main)
+        Thread(topic: .sync, type: .main, tasks: TaskGenerator.createSyncTasks())
     }
 }

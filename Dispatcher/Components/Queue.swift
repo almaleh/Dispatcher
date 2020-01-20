@@ -24,15 +24,11 @@ enum QueueType: String, CaseIterable {
     }
 }
 
-enum Task {
-    case workBlock(WorkBlock)
-    case statement(Statement)
-}
-
 struct Queue: View {
     
     let topic: Topic
     let type: QueueType
+    let tasks: [Task]
     
     private let width: CGFloat = 110.0
     @Binding var threads: Int
@@ -51,7 +47,7 @@ struct Queue: View {
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
-                            Thread(topic: self.topic, type: self.type)
+                            Thread(topic: self.topic, type: self.type, tasks: self.tasks)
                         }
                     }
                 }
@@ -70,6 +66,8 @@ struct Queue: View {
 
 struct Queue_Previews: PreviewProvider {
     static var previews: some View {
-        Queue(topic: .sync, type: .main, threads: .constant(1))
+        return Queue(topic: .sync, type: .main,
+                     tasks: TaskGenerator.createSyncTasks(),
+                     threads: .constant(1))
     }
 }

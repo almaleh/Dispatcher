@@ -15,10 +15,10 @@ struct WorkBlock: View {
     @State private var borderOpacity: Double = 1.0
     @State private var scale: CGFloat = 0.5
     
+    private let startTime: Date
     private let taskDuration: Double
     private let color: Color
     private let possibleBlockColors: [Color] = [.purple]
-    private let isCollapsing: Bool
     
     
     var body: some View {
@@ -34,17 +34,19 @@ struct WorkBlock: View {
         }
     }
     
-    init (isCollapsing: Bool, duration: Double, color: Color) {
+    init (startTime: Date, taskDuration: Double, color: Color) {
         self.color = color
-        self.isCollapsing = isCollapsing
-        self.taskDuration = duration
+        self.startTime = startTime
+        self.taskDuration = taskDuration
     }
     
     func startTask() {
-        let startDelay = isCollapsing ? 1.5 : 2.0 + taskDuration
+        let startDelay =  max(startTime.timeIntervalSince(Date()), 0.0)
+        
+//        isCollapsing ? 1.5 : 2.0 + taskDuration
         
         withAnimation(Animation
-            .linear(duration: self.taskDuration)
+            .linear(duration: 5.0)
             .delay(startDelay)) {
             self.progress = 0.0
         }
@@ -58,6 +60,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(isCollapsing: true, duration: 3.0, color: .red)
+        WorkBlock(startTime: Date(), taskDuration: 5.0, color: .red)
     }
 }
