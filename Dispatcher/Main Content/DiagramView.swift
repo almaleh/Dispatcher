@@ -23,8 +23,6 @@ enum Topic: String, CaseIterable {
 
 struct DiagramView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @State private var topic = 0
     @State private var didStart = false
     var startButtonText: String {
@@ -63,15 +61,8 @@ struct DiagramView: View {
                 }
             }
             .padding([.leading, .trailing, .bottom], spacing)
-            ZStack {
-                BlurView(style: colorScheme == .light ? .prominent : .dark)
-                    .frame(maxHeight: 100)
-                    .blur(radius: 12, opaque: true)
-                    .border(Color.blue.opacity(0.8), width: 2)
-                    .padding(25)
-                Text("For real")
-                    .font(.subheadline)
-            }
+            CodeConsole()
+                .frame(maxHeight: 150)
         }
     }
 }

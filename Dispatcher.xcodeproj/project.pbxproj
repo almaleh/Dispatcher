@@ -11,6 +11,7 @@
 		280E904C23D4E17F00DF8EF4 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E904B23D4E17F00DF8EF4 /* Statement.swift */; };
 		280E904E23D510AA00DF8EF4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E904D23D510AA00DF8EF4 /* Scheduler.swift */; };
 		280E905023D5391400DF8EF4 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E904F23D5391400DF8EF4 /* ViewTest.swift */; };
+		28157B2323D619BD00C1C751 /* CodeConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28157B2223D619BD00C1C751 /* CodeConsole.swift */; };
 		2834C12D23D299A900347C96 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C12C23D299A900347C96 /* Queue.swift */; };
 		2834C12F23D2A23600347C96 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C12E23D2A23600347C96 /* Thread.swift */; };
 		2834C13123D358BE00347C96 /* WavyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C13023D358BE00347C96 /* WavyLine.swift */; };
@@ -30,6 +31,7 @@
 		280E904B23D4E17F00DF8EF4 /* Statement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
 		280E904D23D510AA00DF8EF4 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		280E904F23D5391400DF8EF4 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
+		28157B2223D619BD00C1C751 /* CodeConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeConsole.swift; sourceTree = "<group>"; };
 		2834C12C23D299A900347C96 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		2834C12E23D2A23600347C96 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		2834C13023D358BE00347C96 /* WavyLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavyLine.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				280E904923D4CAD800DF8EF4 /* WorkBlock.swift */,
 				280E904B23D4E17F00DF8EF4 /* Statement.swift */,
 				2834C13023D358BE00347C96 /* WavyLine.swift */,
+				28157B2223D619BD00C1C751 /* CodeConsole.swift */,
 				287B40A823D56E17005960B5 /* BlurView.swift */,
 			);
 			path = Components;
@@ -218,6 +221,7 @@
 				28E6419523D1699000C7A860 /* SceneDelegate.swift in Sources */,
 				280E905023D5391400DF8EF4 /* ViewTest.swift in Sources */,
 				287B40A923D56E17005960B5 /* BlurView.swift in Sources */,
+				28157B2323D619BD00C1C751 /* CodeConsole.swift in Sources */,
 				2834C12F23D2A23600347C96 /* Thread.swift in Sources */,
 				28E6419723D1699000C7A860 /* ContentView.swift in Sources */,
 				280E904C23D4E17F00DF8EF4 /* Statement.swift in Sources */,
