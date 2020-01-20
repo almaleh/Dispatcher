@@ -23,6 +23,8 @@ enum Topic: String, CaseIterable {
 
 struct DiagramView: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @State private var topic = 0
     @State private var didStart = false
     var startButtonText: String {
@@ -37,29 +39,40 @@ struct DiagramView: View {
     let spacing: CGFloat = 25
     
     var body: some View {
-        VStack (spacing: spacing) {
-            VStack {
-                Text("Explain")
-                    .font(.title)
-                Picker("Topic", selection: $topic) {
-                    ForEach(0..<Topic.allCases.count, id: \.self) { num in
-                        Text(Topic.allCases[num].rawValue.capitalized)
+        ZStack (alignment: .bottom) {
+            VStack (spacing: spacing) {
+                VStack {
+                    Text("Explain")
+                        .font(.title)
+                    Picker("Topic", selection: $topic) {
+                        ForEach(0..<Topic.allCases.count, id: \.self) { num in
+                            Text(Topic.allCases[num].rawValue.capitalized)
+                        }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                Scheduler(topic: topic, didStart: $didStart)
+                Button(action: {
+                    self.didStart = !self.didStart
+                }) {
+                    HStack {
+                        Text(self.startButtonText)
+                        Image(systemName: self.startButtonImage)
+                    }
+                    .font(.title)
+                }
             }
-            Scheduler(topic: topic, didStart: $didStart)
-            Button(action: {
-                self.didStart = !self.didStart
-            }) {
-                HStack {
-                    Text(self.startButtonText)
-                    Image(systemName: self.startButtonImage)
-                }
-                .font(.title)
+            .padding([.leading, .trailing, .bottom], spacing)
+            ZStack {
+                BlurView(style: colorScheme == .light ? .prominent : .dark)
+                    .frame(maxHeight: 100)
+                    .blur(radius: 12, opaque: true)
+                    .border(Color.blue.opacity(0.8), width: 2)
+                    .padding(25)
+                Text("For real")
+                    .font(.subheadline)
             }
         }
-        .padding(spacing)
     }
 }
 
