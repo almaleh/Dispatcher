@@ -37,16 +37,14 @@ struct WorkBlock: View {
     init (startTime: Date, taskDuration: Double, color: Color) {
         self.color = color
         self.startTime = startTime
-        self.taskDuration = taskDuration
+        self.taskDuration = taskDuration * 0.9
     }
     
     func startTask() {
         let startDelay =  max(startTime.timeIntervalSince(Date()), 0.0)
         
-//        isCollapsing ? 1.5 : 2.0 + taskDuration
-        
         withAnimation(Animation
-            .linear(duration: 5.0)
+            .linear(duration: self.taskDuration)
             .delay(startDelay)) {
             self.progress = 0.0
         }

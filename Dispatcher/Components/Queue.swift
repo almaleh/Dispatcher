@@ -34,6 +34,20 @@ struct Queue: View {
     @Binding var threads: Int
     @State private var showThreads = false
     
+    init(topic: Topic, type: QueueType, tasks: [Task], threads: Binding<Int>) {
+        self.topic = topic
+        self.type = type
+        self._threads = threads
+        // only register the tasks meant for this queue
+        self.tasks = tasks.filter { task in
+            if type == .main {
+                return task.type.isMainThreadTask
+            } else {
+                return !task.type.isMainThreadTask
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             Text(type.rawValue)
@@ -47,6 +61,7 @@ struct Queue: View {
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
+                            // TODO identify threads in tasks
                             Thread(topic: self.topic, type: self.type, tasks: self.tasks)
                         }
                     }
@@ -56,7 +71,7 @@ struct Queue: View {
         .frame(maxWidth: width * CGFloat(threads))
         .frame(minWidth: width)
         .onAppear {
-            let threadsDelay = 0.0
+            let threadsDelay = 1.0
             DispatchQueue.main.asyncAfter(deadline: .now() + threadsDelay) {
                 self.showThreads = true
             }

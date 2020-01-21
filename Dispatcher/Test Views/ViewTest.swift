@@ -10,27 +10,13 @@ import SwiftUI
 
 struct ViewTest: View {
     
-    @State var height: CGFloat = 50
     @State var visible = true
     
     var body: some View {
-        VStack {
+        return Group {
             if visible {
-            Text("This is a test")
-//                .frame(width: 100, height: height)
-                .frame(minHeight: height)
-//                .opacity(visible ? 1.0 : 0.0)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        withAnimation(.easeOut(duration: 1)) {
-                            self.visible = false
-//                            self.height = 0.0
-                        }
-                    }
+                Text("We are here, after all")
             }
-            }
-            Text("El Segundo")
-            Spacer()
         }
     }
 }

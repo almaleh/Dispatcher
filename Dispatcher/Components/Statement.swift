@@ -32,6 +32,7 @@ struct Statement: View {
     @State private var isPulsing = true
     
     private let statementDuration: Double
+    private let startTime: Date
     
     var body: some View {
         Group {
@@ -57,9 +58,12 @@ struct Statement: View {
         .padding([.top, .bottom], 20)
         .onAppear(perform: {
             self.startPulsing()
+            var startDelay: Double = max(self.startTime.timeIntervalSince(Date()), 0.0)
+            let extraDuration = self.type == .sync ?
+                self.statementDuration : 0.0
             
-            DispatchQueue.main.asyncAfter(deadline: .now() +
-                self.statementDuration) {
+            startDelay = Double(Int(startDelay))
+            DispatchQueue.main.asyncAfter(deadline: .now() + extraDuration + startDelay) {
                 self.disappear()
             }
         })
@@ -75,12 +79,14 @@ struct Statement: View {
             .animation(.default)
     }
     
-    init(type: DispatchType, duration: Double) {
+    init(startTime: Date, type: DispatchType, duration: Double) {
         self.type = type
         self.statementDuration = duration
+        self.startTime = startTime
     }
     
     func startPulsing() {
+        guard type == .sync else { return }
         self.ringScale = 2.0
         self.isPulsing = true
     }
@@ -95,6 +101,6 @@ struct Statement: View {
 
 struct Statement_Previews: PreviewProvider {
     static var previews: some View {
-        Statement(type: .sync, duration: 0.5)
+        Statement(startTime: Date(), type: .sync, duration: 0.5)
     }
 }

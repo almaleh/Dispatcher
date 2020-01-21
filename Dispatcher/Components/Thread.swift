@@ -20,10 +20,6 @@ struct Thread: View {
     let type: QueueType
     let tasks: [Task]
     
-    init() {
-        // TODO filter tasks to appropriate/compatible, maybe at Queue level
-    }
-    
     var body: some View {
         VStack {
             Text("🧵")
@@ -91,8 +87,8 @@ struct Thread: View {
         switch task.type {
         case .workBlock(let color):
             return AnyView(WorkBlock(startTime: task.startTime, taskDuration: task.duration, color: color))
-        case .statement:
-            return AnyView(Statement(type: .async, duration: task.duration))
+        case .statement(let type):
+            return AnyView(Statement(startTime: task.startTime, type: type, duration: task.duration))
         }
     }
     
