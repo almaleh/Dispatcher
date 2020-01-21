@@ -10,7 +10,6 @@ import SwiftUI
 
 struct Thread: View {
     
-//    @State private var workTasks = [Task]()
     @State private var emojiOpacity: Double = 0.0
     @State private var emojiScale: CGFloat = 0.5
     @State private var threadLength: CGFloat = 0.0
@@ -53,33 +52,8 @@ struct Thread: View {
         .padding(20)
         .onAppear {
             self.unrollThread()
-//            self.addTasksForType(self.type)
         }
     }
-    
-//    func addTasksForType(_ type: QueueType) {
-//
-//        let otherDuration = 5.0
-//        let mainDuration = otherDuration + 0.7
-//
-//        let first = Task.statement(Statement(type: .sync, duration: mainDuration))
-//        let second = Task.statement(Statement(type: .async, duration: mainDuration + 1.4))
-//
-//        let otherFirst = Task.workBlock(WorkBlock(isCollapsing: true, duration: otherDuration, color: .red))
-//        let otherSecond = Task.workBlock(WorkBlock(isCollapsing: false, duration: otherDuration + 0.5, color: .blue))
-//
-//        let delay: Double = type == .main ? 2.0 : 1.0
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-//            switch type {
-//            case .main:
-//                self.workTasks = [first, second]
-//
-//            default:
-//                self.workTasks = [otherFirst, otherSecond]
-//            }
-//        }
-//    }
     
     func getTask(at index: Int) -> AnyView {
         let task = tasks[index]

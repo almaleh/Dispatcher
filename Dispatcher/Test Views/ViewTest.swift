@@ -14,8 +14,16 @@ struct ViewTest: View {
     
     var body: some View {
         return Group {
-            if visible {
                 Text("We are here, after all")
+                    .background(Color.red.opacity(visible ? 1.0 : 0.0))
+//                    .animation(.easeOut(duration: 0.5))
+                    .animation(nil)
+                    .scaleEffect(visible ? 1 : 0)
+                    .animation(.easeOut(duration: 5.0))
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.visible = false
             }
         }
     }

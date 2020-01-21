@@ -36,7 +36,7 @@ struct WorkBlock: View {
     }
     
     func startTask() {
-        var startDelay =  max(startTime.timeIntervalSince(Date()), 0.0)
+        let startDelay =  max(startTime.timeIntervalSince(Date()), 0.0)
         
         withAnimation(Animation
             .easeInOut(duration: self.taskDuration * 0.2)

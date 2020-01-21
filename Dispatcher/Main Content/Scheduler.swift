@@ -37,7 +37,9 @@ struct Scheduler: View {
             if currentTopic == .sync || currentTopic == .async {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
                     num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                    .zIndex(5)
                         : Queue(topic: self.currentTopic, type: .global, tasks: self.mainTasks, threads: self.$otherThreads)
+                    .zIndex(0)
                 }
                 .id(UUID())
             } else if currentTopic == .serial {
