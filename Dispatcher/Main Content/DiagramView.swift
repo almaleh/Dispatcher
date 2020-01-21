@@ -24,13 +24,14 @@ enum Topic: String, CaseIterable {
 struct DiagramView: View {
     
     @State private var topic = 0
-    @State private var didStart = false
+    @State private var didStart = true
+    @State var startButtonOpacity: Double = 0.0
+    
     var startButtonText: String {
-        didStart ? "Restart" : "Start"
+        "Replay"
     }
     
     var startButtonImage: String {
-//        didStart ? "stop.circle.fill" : "play.circle.fill"
         "play.circle.fill"
     }
     
@@ -50,19 +51,32 @@ struct DiagramView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 Scheduler(topic: topic, didStart: $didStart)
+            }
+            .padding([.leading, .trailing, .bottom], spacing)
+            VStack (spacing: 0.0) {
                 Button(action: {
-                    self.didStart = !self.didStart
+                    self.didStart = true
+                    self.startButtonOpacity = 0.0
                 }) {
                     HStack {
                         Text(self.startButtonText)
                         Image(systemName: self.startButtonImage)
                     }
                     .font(.title)
+                    .padding()
+                    .background(Color(UIColor.systemBackground))
+                    .cornerRadius(12)
                 }
+                .opacity(startButtonOpacity)
+                CodeConsole()
+                    .frame(maxHeight: 150)
             }
-            .padding([.leading, .trailing, .bottom], spacing)
-            CodeConsole()
-                .frame(maxHeight: 150)
+        }
+        .onAppear {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                self.startButtonOpacity = 1.0
+            }
         }
     }
 }

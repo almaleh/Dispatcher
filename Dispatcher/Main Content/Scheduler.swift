@@ -37,26 +37,27 @@ struct Scheduler: View {
             if currentTopic == .sync || currentTopic == .async {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
                     num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
-                    .zIndex(5)
+                        .zIndex(1)
                         : Queue(topic: self.currentTopic, type: .global, tasks: self.mainTasks, threads: self.$otherThreads)
-                    .zIndex(0)
+                            .zIndex(0)
                 }
                 .id(UUID())
             } else if currentTopic == .serial {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
                     num == 0 ? Queue(topic: .serial, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                        .zIndex(1)
                         : Queue(topic: .serial, type: .privateSerial, tasks: self.mainTasks, threads: self.$otherThreads)
+                            .zIndex(0)
                 }
                 .id(UUID())
             } else if currentTopic == .concurrent {
                 ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
                     num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
+                        .zIndex(1)
                         : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.mainTasks, threads: self.$otherThreads)
+                            .zIndex(0)
                 }
                 .id(UUID())
-            }
-            if currentTopic == .serial {
-                Spacer()
             }
         }
         .onAppear {
