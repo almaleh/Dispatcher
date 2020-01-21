@@ -37,15 +37,15 @@ enum TaskGenerator {
         var tasks = [Task]()
         let duration: Double = 5.0
         
-        let syncStartDelay = 3.0
+        let syncStartDelay = 4.0
         let pause = 1.0
         let syncStart = Date().addingTimeInterval(syncStartDelay)
         tasks.append(Task(type: .statement(.sync), startTime: syncStart, duration: duration))
         tasks.append(Task(type: .workBlock(.red), startTime: syncStart, duration: duration))
         
         
-        let asyncStart = Date().addingTimeInterval(syncStartDelay + duration + pause)
-        tasks.append(Task(type: .statement(.async), startTime: asyncStart, duration: duration))
+        let asyncStart = Date().addingTimeInterval(syncStartDelay + duration)
+        tasks.append(Task(type: .statement(.async), startTime: asyncStart + pause, duration: duration))
         tasks.append(Task(type: .workBlock(.blue), startTime: asyncStart, duration: duration))
         
         return tasks
