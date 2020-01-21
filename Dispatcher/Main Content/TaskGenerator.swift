@@ -41,11 +41,11 @@ enum TaskGenerator {
     static func createSyncTasks() -> [Task] {
         
         var tasks = [Task]()
-        let duration: Double = 5.0
+        let duration: Double = 7.0
         
-        let syncStartDelay = 4.0
-        let blockPause = 0.5 // adjust as needed
-        let statementPause = blockPause + 1.5
+        let syncStartDelay = 4.5
+        let blockPause = 1.5 // adjust as needed
+        let statementPause = blockPause + 1.75
         let syncStart = Date().addingTimeInterval(syncStartDelay)
         tasks.append(Task(type: .statement(.sync), startTime: syncStart, duration: duration))
         tasks.append(Task(type: .workBlock(.red), startTime: syncStart, duration: duration))

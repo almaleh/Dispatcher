@@ -14,6 +14,7 @@ struct Thread: View {
     @State private var emojiScale: CGFloat = 0.5
     @State private var threadLength: CGFloat = 0.0
     @State private var taskOpacity = 0.0
+    @State private var visibleTasks = [Task]()
     
     let topic: Topic
     let type: QueueType
@@ -37,7 +38,7 @@ struct Thread: View {
                         .easeInOut(duration: 1.5)
                         .delay(0.5))
                 VStack (alignment: .center) {
-                    ForEach(0..<tasks.count, id: \.self) { idx in
+                    ForEach(0..<visibleTasks.count, id: \.self) { idx in
                         self.getTask(at: idx)
                             .opacity(self.taskOpacity)
                             .onAppear {
@@ -51,13 +52,27 @@ struct Thread: View {
         }
         .padding(20)
         .onAppear {
-            self.unrollThread()
+            
+            var delay = 0.0
+            
+            if self.topic == .sync && self.type != .main {
+                let task = self.tasks.first?.startTime ?? Date()
+                delay = task.timeIntervalSince(Date()) * 0.8
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.unrollThread()
+            }
+            
+            // Delay before showing tasks
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.visibleTasks = self.tasks
+            }
         }
     }
     
     func getTask(at index: Int) -> AnyView {
-        let task = tasks[index]
-        
+        let task = visibleTasks[index]
         switch task.type {
         case .workBlock(let color):
             return AnyView(WorkBlock(startTime: task.startTime, taskDuration: task.duration, color: color))

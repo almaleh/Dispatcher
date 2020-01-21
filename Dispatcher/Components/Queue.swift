@@ -56,7 +56,7 @@ struct Queue: View {
             if type == .main {
                 return task.type.isMainThreadTask
             } else {
-                return !task.type.isMainThreadOnly
+                return !task.type.isMainThreadOnly // includes sync workblock
             }
         }
         self.tasks = tasks.filter { task in
