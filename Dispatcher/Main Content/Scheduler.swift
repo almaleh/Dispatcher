@@ -28,42 +28,53 @@ struct Scheduler: View {
         return Topic.allCases[self.topic]
     }
     
-    var mainTasks: [Task] {
-        return TaskGenerator.createSyncTasks()
+    var tasks: [Task] {
+        return getTasks(for: Topic.allCases[topic])
     }
     
     var body: some View {
-        HStack(spacing: spacing) {
-            if currentTopic == .sync || currentTopic == .async {
-                ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
-                        .zIndex(1)
-                        : Queue(topic: self.currentTopic, type: .global, tasks: self.mainTasks, threads: self.$otherThreads)
-                            .zIndex(0)
+        ZStack (alignment: .bottom) {
+            HStack(spacing: spacing) {
+                if currentTopic == .sync || currentTopic == .async {
+                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                            .zIndex(1)
+                            : Queue(topic: self.currentTopic, type: .global, tasks: self.tasks, threads: self.$otherThreads)
+                                .zIndex(0)
+                    }
+                    .id(UUID())
+                } else if currentTopic == .serial {
+                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                            .zIndex(1)
+                            : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks, threads: self.$otherThreads)
+                                .zIndex(0)
+                    }
+                    .id(UUID())
+                } else if currentTopic == .concurrent {
+                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                            .zIndex(1)
+                            : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks, threads: self.$otherThreads)
+                                .zIndex(0)
+                    }
+                    .id(UUID())
                 }
-                .id(UUID())
-            } else if currentTopic == .serial {
-                ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: .serial, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
-                        .zIndex(1)
-                        : Queue(topic: .serial, type: .privateSerial, tasks: self.mainTasks, threads: self.$otherThreads)
-                            .zIndex(0)
-                }
-                .id(UUID())
-            } else if currentTopic == .concurrent {
-                ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                    num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.mainTasks, threads: self.$mainThreads)
-                        .zIndex(1)
-                        : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.mainTasks, threads: self.$otherThreads)
-                            .zIndex(0)
-                }
-                .id(UUID())
             }
+            .onAppear {
+                self.increaseThreadCount()
+            }
+                .id(UUID()) // force animation restart
+            
+            VStack (spacing: 0.0) {
+                Subtitles(didStart: $didStart, topic: Topic.allCases[topic])
+                CodeConsole(tasks: tasks)
+                    .frame(maxHeight: 100)
+            }
+                // This is a 'hack' to force animation restart, not proud of it
+                .opacity(didStart ? 1.0 : 0.99)
+                .padding(.bottom, -10)
         }
-        .onAppear {
-            self.increaseThreadCount()
-        }
-            .id(UUID()) // force animation restart
     }
     
     func increaseThreadCount() {
@@ -75,6 +86,13 @@ struct Scheduler: View {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
         self.workItem = workItem
+    }
+    
+    func getTasks(for topic: Topic) -> [Task] {
+        switch topic {
+        case .sync: return TaskGenerator.createSyncTasks()
+        default: return TaskGenerator.createSyncTasks()
+        }
     }
 }
 

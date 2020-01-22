@@ -12,6 +12,8 @@ struct CodeConsole: View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    private let tasks: [Task] 
+    
     var lines = [
         "jan 13, 2020: First",
         "jan 13, 2020: First",
@@ -37,12 +39,15 @@ struct CodeConsole: View {
                 .border(Color.black, width: 2)
         )
         .cornerRadius(3)
-        .padding([.trailing, .leading], 25)
+    }
+    
+    init(tasks: [Task]) {
+        self.tasks = tasks.filter { $0.type.isWorkBlock }
     }
 }
 
 struct CodeConsole_Previews: PreviewProvider {
     static var previews: some View {
-        CodeConsole()
+        CodeConsole(tasks: [])
     }
 }

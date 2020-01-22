@@ -31,8 +31,9 @@ struct Statement: View {
     @State private var currentOpacity = 1.0
     @State private var isPulsing = true
     
-    private let statementDuration: Double
-    private let startTime: Date
+    private let task: Task
+    private var statementDuration: Double { task.duration }
+    private var startTime: Date { task.startTime }
     
     var body: some View {
         Group {
@@ -79,10 +80,9 @@ struct Statement: View {
             .animation(.default)
     }
     
-    init(startTime: Date, type: DispatchType, duration: Double) {
+    init(type: DispatchType, task: Task) {
         self.type = type
-        self.statementDuration = duration
-        self.startTime = startTime
+        self.task = task
     }
     
     func startPulsing() {
@@ -101,6 +101,6 @@ struct Statement: View {
 
 struct Statement_Previews: PreviewProvider {
     static var previews: some View {
-        Statement(startTime: Date(), type: .sync, duration: 0.5)
+        Statement(type: .sync, task: Task(type: .statement(.sync), startTime: Date(), duration: 0.5))
     }
 }

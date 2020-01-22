@@ -56,7 +56,8 @@ struct Queue: View {
             if type == .main {
                 return task.type.isMainThreadTask
             } else {
-                return !task.type.isMainThreadOnly // includes sync workblock
+                // include both types of blocks, sync & async
+                return task.type.isWorkBlock
             }
         }
         self.tasks = tasks.filter { task in
@@ -103,7 +104,7 @@ struct Queue: View {
     
     func processSyncTask() {
         for task in allTasks {
-            if case .workBlock(.red) = task.type {
+            if case .workBlock(.red, _) = task.type {
                 
                 let animDuration = 0.75
                 let taskStart = task.startTime.timeIntervalSince(Date()) - animDuration

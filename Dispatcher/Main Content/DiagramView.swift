@@ -22,10 +22,10 @@ enum Topic: String, CaseIterable {
     
     var explanation: String {
         switch self {
-            case .sync: return syncExplanation
-            case .async: return asyncExplanation
-            case .serial: return serialExplanation
-            case .concurrent: return concurrentExplanation
+        case .sync: return syncExplanation
+        case .async: return asyncExplanation
+        case .serial: return serialExplanation
+        case .concurrent: return concurrentExplanation
         }
     }
 }
@@ -38,27 +38,19 @@ struct DiagramView: View {
     let spacing: CGFloat = 20
     
     var body: some View {
-        ZStack (alignment: .bottom) {
-            VStack (spacing: spacing) {
-                VStack {
-                    Text("Explain")
-                    Picker("Topic", selection: $topic) {
-                        ForEach(0..<Topic.allCases.count, id: \.self) { num in
-                            Text(Topic.allCases[num].rawValue.capitalized)
-                        }
+        VStack (spacing: spacing) {
+            VStack {
+                Text("Explain")
+                Picker("Topic", selection: $topic) {
+                    ForEach(0..<Topic.allCases.count, id: \.self) { num in
+                        Text(Topic.allCases[num].rawValue.capitalized)
                     }
-                    .pickerStyle(SegmentedPickerStyle())
                 }
-                Scheduler(topic: topic, didStart: $didStart)
+                .pickerStyle(SegmentedPickerStyle())
             }
-            .padding([.leading, .trailing, .bottom], spacing)
-            VStack (spacing: 0.0) {
-                Subtitles(didStart: $didStart, topic: Topic.allCases[topic])
-                CodeConsole()
-                    .frame(maxHeight: 100)
-            }
-            .padding(.bottom, 15)
+            Scheduler(topic: topic, didStart: $didStart)
         }
+        .padding([.leading, .trailing, .bottom], spacing)
     }
 }
 

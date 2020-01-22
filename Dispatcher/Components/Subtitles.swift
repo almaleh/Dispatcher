@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct Subtitles: View {
-
+    
     @Binding var didStart: Bool
-    @State private var textVisible = false
+    @State private var textVisible = true
+    @State private var workItem: DispatchWorkItem?
+    
     var topic: Topic
     
     var startButtonText: String {
@@ -23,16 +25,17 @@ struct Subtitles: View {
     }
     
     var body: some View {
-        ZStack {
+        scheduleButtonToAppear()
+        return ZStack {
             Button(action: {
-                self.didStart = true
+                self.didStart = !self.didStart
                 self.textVisible = true
             }) {
                 HStack {
                     Text(self.startButtonText)
                     Image(systemName: self.startButtonImage)
                 }
-                .font(.headline)
+                .font(.title)
                 .padding(8)
             }
             .opacity(textVisible ? 0.0 : 1.0)
@@ -42,13 +45,19 @@ struct Subtitles: View {
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, alignment: .center)
+        .padding([.trailing, .leading], 4)
         .background(Color(UIColor.systemBackground))
-        .cornerRadius(12)
-        .padding([.trailing, .leading, .top], 25)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-                self.textVisible = false
+    }
+    
+    func scheduleButtonToAppear() {
+        DispatchQueue.main.async {
+            self.workItem?.cancel()
+            self.workItem = nil
+            let workItem = DispatchWorkItem {
+                if self.textVisible { self.textVisible = false }
             }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: workItem)
+            self.workItem = workItem
         }
     }
     

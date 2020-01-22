@@ -9,22 +9,22 @@
 import SwiftUI
 
 enum TaskType {
-    case workBlock(Color)
+    case workBlock(Color, String)
     case statement(DispatchType)
     
     var isMainThreadTask: Bool {
-        if case .workBlock(.blue) = self {
+        if case .workBlock(.blue, _) = self {
             return false
         } else {
             return true 
         }
     }
     
-    var isMainThreadOnly: Bool {
+    var isWorkBlock: Bool {
         if case .workBlock = self {
-            return false
-        } else {
             return true
+        } else {
+            return false
         }
     }
 }
@@ -37,9 +37,11 @@ struct Task {
 
 enum TaskGenerator {
     
+    private static let baseEmojis = ["🥱", "🤯", "😮", "😵", "🐮", "🐵", "👻", "🐔"]
     
     static func createSyncTasks() -> [Task] {
         
+        var emojis = baseEmojis.shuffled()
         var tasks = [Task]()
         let duration: Double = 7.0
         
@@ -47,13 +49,14 @@ enum TaskGenerator {
         let blockPause = 1.5 // adjust as needed
         let statementPause = blockPause + 1.75
         let syncStart = Date().addingTimeInterval(syncStartDelay)
+        
         tasks.append(Task(type: .statement(.sync), startTime: syncStart, duration: duration))
-        tasks.append(Task(type: .workBlock(.red), startTime: syncStart, duration: duration))
+        tasks.append(Task(type: .workBlock(.red, emojis.removeFirst()), startTime: syncStart, duration: duration))
         
         
         let asyncStart = Date().addingTimeInterval(syncStartDelay + duration)
         tasks.append(Task(type: .statement(.async), startTime: asyncStart + statementPause, duration: duration))
-        tasks.append(Task(type: .workBlock(.blue), startTime: asyncStart + blockPause, duration: duration))
+        tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: asyncStart + blockPause, duration: duration))
         
         return tasks
     }

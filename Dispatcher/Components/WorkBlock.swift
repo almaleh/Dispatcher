@@ -14,10 +14,14 @@ struct WorkBlock: View {
     @State private var progress: CGFloat = 1.0
     @State private var borderOpacity: Double = 1.0
     
-    private let startTime: Date
-    private let taskDuration: Double
-    private let color: Color
+    private let task: Task
     private let possibleBlockColors: [Color] = [.purple]
+    
+    private let color: Color
+    private let emoji: String
+    
+    private var startTime: Date { task.startTime }
+    private var taskDuration: Double { task.duration * 0.8 }
     
     var body: some View {
         return color
@@ -28,10 +32,15 @@ struct WorkBlock: View {
         }
     }
     
-    init (startTime: Date, taskDuration: Double, color: Color) {
-        self.color = color
-        self.startTime = startTime
-        self.taskDuration = taskDuration * 0.8
+    init (task: Task) {
+        self.task = task
+        if case .workBlock(let color, let emoji) = task.type {
+            self.color = color
+            self.emoji = emoji
+        } else {
+            self.color = .red
+            self.emoji = "🐷"
+        }
         _progress = State(initialValue: 0.0)
     }
     
@@ -61,6 +70,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(startTime: Date(), taskDuration: 5.0, color: .red)
+        WorkBlock(task: Task(type: .workBlock(.red, ""), startTime: Date(), duration: 1))
     }
 }

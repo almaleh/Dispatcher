@@ -74,10 +74,10 @@ struct Thread: View {
     func getTask(at index: Int) -> AnyView {
         let task = visibleTasks[index]
         switch task.type {
-        case .workBlock(let color):
-            return AnyView(WorkBlock(startTime: task.startTime, taskDuration: task.duration, color: color))
+        case .workBlock:
+            return AnyView(WorkBlock(task: task))
         case .statement(let type):
-            return AnyView(Statement(startTime: task.startTime, type: type, duration: task.duration))
+            return AnyView(Statement(type: type, task: task))
         }
     }
     
