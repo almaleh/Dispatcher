@@ -12,17 +12,16 @@ struct CodeConsole: View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    private let tasks: [Task] 
+    private let numberOfVisibleLines = 5
+    private let tasks: [Task]
     
-    var lines = [
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-        "jan 13, 2020: First",
-    ]
+    @State private var lines = ["Awaiting tasks"]
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        return formatter
+    }()
     
     var body: some View {
         ScrollView {
@@ -31,18 +30,42 @@ struct CodeConsole: View {
                     .foregroundColor(.white)
                     .font(.system(size: 14, design: .monospaced))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.top, .bottom], 1)
             }
         }
-        .padding(5)
+        .padding([.trailing, .leading], 5)
         .background(
             Color.black.brightness(0.2)
                 .border(Color.black, width: 2)
         )
-        .cornerRadius(3)
+            .cornerRadius(3)
+            .onAppear {
+                self.tasks.forEach { self.processTask($0) }
+        }
     }
     
     init(tasks: [Task]) {
         self.tasks = tasks.filter { $0.type.isWorkBlock }
+    }
+    
+    func processTask(_ task: Task) {
+        if case .workBlock(_, let emoji) = task.type {
+            let start = task.startDelay
+            
+            for i in 0...9 {
+                let delay = start + ((task.duration / 10) * Double(i))
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    
+                    let dateString = self.dateFormatter.string(from: Date())
+                    let newLine = dateString + ": " + emoji + " - \(i + 1)/10"
+                    
+                    self.lines.append(newLine)
+                    if self.lines.count > self.numberOfVisibleLines {
+                        self.lines.removeFirst()
+                    }
+                }
+            }
+        }
     }
 }
 

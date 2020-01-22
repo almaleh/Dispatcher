@@ -64,17 +64,16 @@ struct Scheduler: View {
             .onAppear {
                 self.increaseThreadCount()
             }
-                .id(UUID()) // force animation restart
-            
             VStack (spacing: 0.0) {
                 Subtitles(didStart: $didStart, topic: Topic.allCases[topic])
                 CodeConsole(tasks: tasks)
                     .frame(maxHeight: 100)
             }
-                // This is a 'hack' to force animation restart, not proud of it
+                // Dirty 'hack' to force animation restart, not proud of it
                 .opacity(didStart ? 1.0 : 0.99)
                 .padding(.bottom, -10)
         }
+            .id(UUID()) // forces animation restart
     }
     
     func increaseThreadCount() {

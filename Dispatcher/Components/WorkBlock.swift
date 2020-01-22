@@ -24,11 +24,18 @@ struct WorkBlock: View {
     private var taskDuration: Double { task.duration * 0.8 }
     
     var body: some View {
-        return color
-            .frame(width: 60, height: 150 * progress)
-            .border(Color.yellow.opacity(borderOpacity), width: 3)
-            .onAppear {
-                self.startTask()
+        return ZStack {
+            color
+                .frame(width: 60, height: 150 * progress)
+                .border(Color.yellow.opacity(borderOpacity), width: 3)
+                .onAppear {
+                    self.startTask()
+            }
+            .overlay(
+                Text(emoji)
+                    .font(.largeTitle)
+            )
+                .clipped()
         }
     }
     
@@ -45,7 +52,7 @@ struct WorkBlock: View {
     }
     
     func startTask() {
-        let startDelay =  max(startTime.timeIntervalSince(Date()), 0.0)
+        let startDelay = task.startDelay
         
         withAnimation(Animation
             .easeInOut(duration: self.taskDuration * 0.2)
@@ -70,6 +77,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(task: Task(type: .workBlock(.red, ""), startTime: Date(), duration: 1))
+        WorkBlock(task: Task(type: .workBlock(.red, "🐶"), startTime: Date(), duration: 1))
     }
 }

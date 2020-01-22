@@ -59,7 +59,7 @@ struct Statement: View {
         .padding([.top, .bottom], 20)
         .onAppear(perform: {
             self.startPulsing()
-            var startDelay: Double = max(self.startTime.timeIntervalSince(Date()), 0.0)
+            var startDelay: Double = self.task.startDelay
             let extraDuration = self.type == .sync ?
                 self.statementDuration : 0.0
             

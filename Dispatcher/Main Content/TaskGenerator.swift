@@ -33,11 +33,15 @@ struct Task {
     let type: TaskType
     let startTime: Date
     let duration: Double
+    
+    var startDelay: TimeInterval {
+        max(startTime.timeIntervalSince(Date()), 0.0)
+    }
 }
 
 enum TaskGenerator {
     
-    private static let baseEmojis = ["🥱", "🤯", "😮", "😵", "🐮", "🐵", "👻", "🐔"]
+    private static let baseEmojis = ["🥱", "🤯", "🤪", "😵", "🐮", "🐵", "👻", "🐔"]
     
     static func createSyncTasks() -> [Task] {
         
