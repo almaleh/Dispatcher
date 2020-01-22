@@ -11,85 +11,65 @@ import SwiftUI
 struct Scheduler: View {
     
     private let spacing: CGFloat = 25
-    private let topic: Int
+    private let topic: Topic
+    private var tasks = [Task]()
     
     @State private var mainThreads = 1
     @State private var otherThreads = 0
-    @State private var workItem: DispatchWorkItem?
     
     @Binding var didStart: Bool
     
     init(topic: Int, didStart: Binding<Bool>) {
-        self.topic = topic
+        self.topic = Topic.allCases[topic]
         self._didStart = didStart
-    }
-    
-    var currentTopic: Topic {
-        return Topic.allCases[self.topic]
-    }
-    
-    var tasks: [Task] {
-        return getTasks(for: Topic.allCases[topic])
+        self.tasks = getTasks(for: self.topic)
     }
     
     var body: some View {
         ZStack (alignment: .bottom) {
             HStack(spacing: spacing) {
-                if currentTopic == .sync || currentTopic == .async {
-                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: self.currentTopic, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                if topic == .sync || topic == .async {
+                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
                             .zIndex(1)
-                            : Queue(topic: self.currentTopic, type: .global, tasks: self.tasks, threads: self.$otherThreads)
+                            : Queue(topic: self.topic, type: .global, tasks: self.tasks)
                                 .zIndex(0)
                     }
                     .id(UUID())
-                } else if currentTopic == .serial {
-                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                } else if topic == .serial {
+                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks)
                             .zIndex(1)
-                            : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks, threads: self.$otherThreads)
+                            : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks)
                                 .zIndex(0)
                     }
                     .id(UUID())
-                } else if currentTopic == .concurrent {
-                    ForEach(0..<currentTopic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks, threads: self.$mainThreads)
+                } else if topic == .concurrent {
+                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+                        num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks)
                             .zIndex(1)
-                            : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks, threads: self.$otherThreads)
+                            : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks)
                                 .zIndex(0)
                     }
                     .id(UUID())
                 }
             }
-            .onAppear {
-                self.increaseThreadCount()
-            }
             VStack (spacing: 0.0) {
-                Subtitles(didStart: $didStart, topic: Topic.allCases[topic])
+                Subtitles(didStart: $didStart, topic: topic)
                 CodeConsole(tasks: tasks)
                     .frame(maxHeight: 100)
             }
-                // Dirty 'hack' to force animation restart, not proud of it
+                // forces animation restart
                 .opacity(didStart ? 1.0 : 0.99)
                 .padding(.bottom, -10)
         }
             .id(UUID()) // forces animation restart
     }
     
-    func increaseThreadCount() {
-        self.otherThreads = 0
-        self.workItem?.cancel()
-        self.workItem = nil
-        let workItem = DispatchWorkItem {
-            self.otherThreads = 1
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
-        self.workItem = workItem
-    }
-    
     func getTasks(for topic: Topic) -> [Task] {
         switch topic {
         case .sync: return TaskGenerator.createSyncTasks()
+        case .async: return TaskGenerator.createAsyncTasks()
         default: return TaskGenerator.createSyncTasks()
         }
     }

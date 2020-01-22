@@ -32,9 +32,10 @@ struct Queue: View {
     var allTasks = [Task]() // stores sync task
     
     private let width: CGFloat = 110.0
-    @Binding var threads: Int
+    @State private var threads: Int = 0
     @State private var showThreads = false
     @State private var syncInProgress = false
+    @State private var workItem: DispatchWorkItem?
     
     var syncQueuePaddingEdge: Edge.Set {
         return type == .main ? .trailing : .leading
@@ -47,10 +48,9 @@ struct Queue: View {
     
     @State private var syncThreadOffset: CGFloat = 0.0
     
-    init(topic: Topic, type: QueueType, tasks: [Task], threads: Binding<Int>) {
+    init(topic: Topic, type: QueueType, tasks: [Task]) {
         self.topic = topic
         self.type = type
-        self._threads = threads
         // only register the tasks meant for this queue
         self.allTasks = tasks.filter { task in
             if type == .main {
@@ -67,6 +67,8 @@ struct Queue: View {
                 return !task.type.isMainThreadTask
             }
         }
+        let threads = type == .main ? 1 : 0
+        _threads = State(initialValue: threads)
     }
     
     var body: some View {
@@ -95,6 +97,7 @@ struct Queue: View {
         .frame(minWidth: width)
         .onAppear {
             self.processSyncTask()
+            self.increaseThreadCount()
             let threadsDelay = 1.0
             DispatchQueue.main.asyncAfter(deadline: .now() + threadsDelay) {
                 self.showThreads = true
@@ -126,12 +129,26 @@ struct Queue: View {
             }
         }
     }
+    
+    func increaseThreadCount() {
+        guard type != .main else { return }
+        threads = 0
+        workItem?.cancel()
+        workItem = nil
+        let workItem = DispatchWorkItem {
+            switch self.topic {
+            case .async, .concurrent: self.threads = 2
+            default: self.threads = 1
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
+        self.workItem = workItem
+    }
 }
 
 struct Queue_Previews: PreviewProvider {
     static var previews: some View {
         return Queue(topic: .sync, type: .main,
-                     tasks: TaskGenerator.createSyncTasks(),
-                     threads: .constant(1))
+                     tasks: TaskGenerator.createSyncTasks())
     }
 }

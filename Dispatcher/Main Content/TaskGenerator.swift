@@ -41,7 +41,7 @@ struct Task {
 
 enum TaskGenerator {
     
-    private static let baseEmojis = ["🥱", "🤯", "🤪", "😵", "🐮", "🐵", "👻", "🐔"]
+    private static let baseEmojis = ["⚾️", "🥑", "🤪", "🚚", "🐮", "⛸", "👻", "🐔"]
     
     static func createSyncTasks() -> [Task] {
         
@@ -61,6 +61,27 @@ enum TaskGenerator {
         let asyncStart = Date().addingTimeInterval(syncStartDelay + duration)
         tasks.append(Task(type: .statement(.async), startTime: asyncStart + statementPause, duration: duration))
         tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: asyncStart + blockPause, duration: duration))
+        
+        return tasks
+    }
+    
+    static func createAsyncTasks() -> [Task] {
+        
+        var emojis = baseEmojis.shuffled()
+        var tasks = [Task]()
+        let duration: Double = 7.0
+        
+        let startDelay = 4.5
+        let blockPause = 1.5 // adjust as needed
+        let statementPause = blockPause + 1.75
+        let task1Start = Date().addingTimeInterval(startDelay)
+        
+        tasks.append(Task(type: .statement(.async), startTime: task1Start, duration: duration))
+        tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: task1Start, duration: duration))
+        
+        let task2Start = Date().addingTimeInterval(startDelay + 1.0)
+        tasks.append(Task(type: .statement(.async), startTime: task2Start + statementPause, duration: duration))
+        tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: task2Start + blockPause, duration: duration))
         
         return tasks
     }

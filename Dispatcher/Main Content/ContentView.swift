@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var didStart = true
+    
     var body: some View {
         TabView {
-            DiagramView()
+            DiagramView(didStart: $didStart)
                 .tabItem {
                     Image(systemName: "book")
                     Text("Explanation")

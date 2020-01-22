@@ -51,14 +51,15 @@ struct CodeConsole: View {
     func processTask(_ task: Task) {
         if case .workBlock(_, let emoji) = task.type {
             let start = task.startDelay
+            let baseDelay: Double = 1
+            let duration = task.duration * 0.7
             
             for i in 0...9 {
-                let delay = start + ((task.duration / 10) * Double(i))
+                let delay = baseDelay + start + ((duration / 10) * Double(i))
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    
                     let dateString = self.dateFormatter.string(from: Date())
                     let newLine = dateString + ": " + emoji + " - \(i + 1)/10"
-                    
                     self.lines.append(newLine)
                     if self.lines.count > self.numberOfVisibleLines {
                         self.lines.removeFirst()

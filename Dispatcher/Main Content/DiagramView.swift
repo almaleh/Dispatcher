@@ -33,7 +33,7 @@ enum Topic: String, CaseIterable {
 struct DiagramView: View {
     
     @State private var topic = 0
-    @State private var didStart = true
+    @Binding var didStart: Bool
     
     let spacing: CGFloat = 20
     
@@ -51,11 +51,16 @@ struct DiagramView: View {
             Scheduler(topic: topic, didStart: $didStart)
         }
         .padding([.leading, .trailing, .bottom], spacing)
+            // Dirty 'hack' to restart animation on tab change, not proud of it
+            .opacity(didStart ? 1.0 : 0.99)
+            .onAppear {
+                self.didStart = !self.didStart
+        }
     }
 }
 
 struct DiagramView_Previews: PreviewProvider {
     static var previews: some View {
-        DiagramView()
+        DiagramView(didStart: .constant(true))
     }
 }
