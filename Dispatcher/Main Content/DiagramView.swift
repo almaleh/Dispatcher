@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum Topic: String, CaseIterable {
-    case serial, concurrent, sync, async
+    case sync, async, serial, concurrent
     
     var numberOfQueues: Int {
         switch self {
@@ -19,30 +19,29 @@ enum Topic: String, CaseIterable {
         case .concurrent: return 2
         }
     }
+    
+    var explanation: String {
+        switch self {
+            case .sync: return syncExplanation
+            case .async: return asyncExplanation
+            case .serial: return serialExplanation
+            case .concurrent: return concurrentExplanation
+        }
+    }
 }
 
 struct DiagramView: View {
     
     @State private var topic = 0
     @State private var didStart = true
-    @State var startButtonOpacity: Double = 0.0
     
-    var startButtonText: String {
-        "Replay"
-    }
-    
-    var startButtonImage: String {
-        "play.circle.fill"
-    }
-    
-    let spacing: CGFloat = 25
+    let spacing: CGFloat = 20
     
     var body: some View {
         ZStack (alignment: .bottom) {
             VStack (spacing: spacing) {
                 VStack {
                     Text("Explain")
-                        .font(.title)
                     Picker("Topic", selection: $topic) {
                         ForEach(0..<Topic.allCases.count, id: \.self) { num in
                             Text(Topic.allCases[num].rawValue.capitalized)
@@ -54,29 +53,11 @@ struct DiagramView: View {
             }
             .padding([.leading, .trailing, .bottom], spacing)
             VStack (spacing: 0.0) {
-                Button(action: {
-                    self.didStart = true
-                    self.startButtonOpacity = 0.0
-                }) {
-                    HStack {
-                        Text(self.startButtonText)
-                        Image(systemName: self.startButtonImage)
-                    }
-                    .font(.title)
-                    .padding()
-                    .background(Color(UIColor.systemBackground))
-                    .cornerRadius(12)
-                }
-                .opacity(startButtonOpacity)
+                Subtitles(didStart: $didStart, topic: Topic.allCases[topic])
                 CodeConsole()
-                    .frame(maxHeight: 150)
+                    .frame(maxHeight: 100)
             }
-        }
-        .onAppear {
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-                self.startButtonOpacity = 1.0
-            }
+            .padding(.bottom, 15)
         }
     }
 }

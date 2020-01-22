@@ -63,7 +63,7 @@ struct Scheduler: View {
         .onAppear {
             self.increaseThreadCount()
         }
-        .id(UUID()) // force animation restart
+            .id(UUID()) // force animation restart
     }
     
     func increaseThreadCount() {

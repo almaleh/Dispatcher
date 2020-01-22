@@ -32,14 +32,12 @@ struct CodeConsole: View {
             }
         }
         .padding(5)
-//        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             Color.black.brightness(0.2)
-                .blur(radius: 12, opaque: true)
                 .border(Color.black, width: 2)
         )
         .cornerRadius(3)
-        .padding(25)
+        .padding([.trailing, .leading], 25)
     }
 }
 
