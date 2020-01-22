@@ -86,10 +86,16 @@ struct Thread: View {
         self.emojiScale = 1.0
         self.threadLength = 1
     }
+    
+    init(topic: Topic, type: QueueType, tasks: [Task], threadID: Int) {
+        self.topic = topic
+        self.type = type
+        self.tasks = tasks.filter { $0.threadID == threadID }
+    }
 }
 
 struct Thread_Previews: PreviewProvider {
     static var previews: some View {
-        Thread(topic: .sync, type: .main, tasks: TaskGenerator.createSyncTasks())
+        Thread(topic: .sync, type: .main, tasks: TaskGenerator.createSyncTasks(), threadID: 0)
     }
 }

@@ -79,14 +79,14 @@ struct Queue: View {
             ZStack {
                 type.color
                     .clipShape(Rectangle())
-                    .opacity(0.6)
+                    .opacity(0.5)
                     .frame(minWidth: width)
                     .padding(syncQueuePaddingEdge, syncQueuePadding)
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
                             // TODO identify threads in tasks
-                            Thread(topic: self.topic, type: self.type, tasks: self.tasks)
+                            Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: num)
                         }
                     }
                 }

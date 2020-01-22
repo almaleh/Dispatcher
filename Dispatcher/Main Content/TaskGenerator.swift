@@ -33,9 +33,17 @@ struct Task {
     let type: TaskType
     let startTime: Date
     let duration: Double
+    let threadID: Int
     
     var startDelay: TimeInterval {
         max(startTime.timeIntervalSince(Date()), 0.0)
+    }
+    
+    init(type: TaskType, startTime: Date, duration: Double, threadID: Int = 0) {
+        self.type = type
+        self.startTime = startTime
+        self.duration = duration
+        self.threadID = threadID
     }
 }
 
@@ -81,7 +89,7 @@ enum TaskGenerator {
         
         let task2Start = Date().addingTimeInterval(startDelay + 1.0)
         tasks.append(Task(type: .statement(.async), startTime: task2Start + statementPause, duration: duration))
-        tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: task2Start + blockPause, duration: duration))
+        tasks.append(Task(type: .workBlock(.blue, emojis.removeFirst()), startTime: task2Start + blockPause, duration: duration, threadID: 1))
         
         return tasks
     }
