@@ -22,10 +22,10 @@ enum Topic: String, CaseIterable {
     
     var explanation: String {
         switch self {
-        case .sync: return syncExplanation
-        case .async: return asyncExplanation
-        case .serial: return serialExplanation
-        case .concurrent: return concurrentExplanation
+        case .sync: return Explanations.sync
+        case .async: return Explanations.async
+        case .serial: return Explanations.serial
+        case .concurrent: return Explanations.concurrent
         }
     }
 }

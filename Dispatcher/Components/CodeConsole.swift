@@ -24,7 +24,7 @@ struct CodeConsole: View {
     }()
     
     var body: some View {
-        ScrollView {
+        VStack {
             ForEach (0..<lines.count, id: \.self) { index in
                 Text(self.lines[index])
                     .foregroundColor(.white)
@@ -32,8 +32,13 @@ struct CodeConsole: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.top, .bottom], 1)
             }
+            if lines.count < numberOfVisibleLines {
+                Spacer()
+            }
         }
         .padding([.trailing, .leading], 5)
+        .frame(height: 100)
+        .frame(maxWidth: 400)
         .background(
             Color.black.brightness(0.2)
                 .border(Color.black, width: 2)
@@ -72,6 +77,8 @@ struct CodeConsole: View {
 
 struct CodeConsole_Previews: PreviewProvider {
     static var previews: some View {
-        CodeConsole(tasks: [])
+        CodeConsole(tasks: [
+            Task(type: .workBlock(.red, "⚾️"), startTime: Date(), duration: 5.0)
+        ])
     }
 }

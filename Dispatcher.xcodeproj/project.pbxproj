@@ -84,7 +84,6 @@
 				28157B2223D619BD00C1C751 /* CodeConsole.swift */,
 				287B40AA23D7D707005960B5 /* Subtitles.swift */,
 				287B40A823D56E17005960B5 /* BlurView.swift */,
-				287B40AC23D7DD39005960B5 /* Explanations.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -110,6 +109,8 @@
 			children = (
 				28E641A823D16D3900C7A860 /* Main Content */,
 				2834C13223D4BA9200347C96 /* Components */,
+				28EFB8EB23D91E82006C2972 /* Model */,
+				28EFB8EC23D91EB8006C2972 /* Constants */,
 				28E641A923D16D4800C7A860 /* Supporting Views */,
 				280E905123D564CF00DF8EF4 /* Test Views */,
 				28E6419823D1699100C7A860 /* Assets.xcassets */,
@@ -136,7 +137,6 @@
 				28E6419623D1699000C7A860 /* ContentView.swift */,
 				28E641A623D16D1600C7A860 /* DiagramView.swift */,
 				280E904D23D510AA00DF8EF4 /* Scheduler.swift */,
-				28157B2423D61F3400C1C751 /* TaskGenerator.swift */,
 				28E641AA23D16DB100C7A860 /* QuizView.swift */,
 			);
 			path = "Main Content";
@@ -147,6 +147,22 @@
 			children = (
 			);
 			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
+		28EFB8EB23D91E82006C2972 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				28157B2423D61F3400C1C751 /* TaskGenerator.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		28EFB8EC23D91EB8006C2972 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				287B40AC23D7DD39005960B5 /* Explanations.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -29,35 +29,20 @@ struct Scheduler: View {
         ZStack (alignment: .bottom) {
             HStack(spacing: spacing) {
                 if topic == .sync || topic == .async {
-                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
-                            .zIndex(1)
-                            : Queue(topic: self.topic, type: .global, tasks: self.tasks)
-                                .zIndex(0)
-                    }
-                    .id(UUID())
+                    syncOrAsync
+                        .id(UUID())
                 } else if topic == .serial {
-                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks)
-                            .zIndex(1)
-                            : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks)
-                                .zIndex(0)
-                    }
-                    .id(UUID())
+                    serial
+                        .id(UUID())
                 } else if topic == .concurrent {
-                    ForEach(0..<topic.numberOfQueues, id: \.self) { num in
-                        num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks)
-                            .zIndex(1)
-                            : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks)
-                                .zIndex(0)
-                    }
-                    .id(UUID())
+                    concurrent
+                        .id(UUID())
                 }
             }
             VStack (spacing: 0.0) {
                 Subtitles(didStart: $didStart, topic: topic)
                 CodeConsole(tasks: tasks)
-                    .frame(maxHeight: 100)
+                    .frame(height: 100)
             }
                 // forces animation restart
                 .opacity(didStart ? 1.0 : 0.99)
@@ -66,11 +51,38 @@ struct Scheduler: View {
             .id(UUID()) // forces animation restart
     }
     
-    func getTasks(for topic: Topic) -> [Task] {
+    private func getTasks(for topic: Topic) -> [Task] {
         switch topic {
         case .sync: return TaskGenerator.createSyncTasks()
         case .async: return TaskGenerator.createAsyncTasks()
         default: return TaskGenerator.createSyncTasks()
+        }
+    }
+    
+    private var syncOrAsync: some View {
+        ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+            num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
+                .zIndex(1)
+                : Queue(topic: self.topic, type: .global, tasks: self.tasks)
+                    .zIndex(0)
+        }
+    }
+    
+    private var serial: some View {
+        ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+            num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks)
+                .zIndex(1)
+                : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks)
+                    .zIndex(0)
+        }
+    }
+    
+    private var concurrent: some View {
+        ForEach(0..<topic.numberOfQueues, id: \.self) { num in
+            num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks)
+                .zIndex(1)
+                : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks)
+                    .zIndex(0)
         }
     }
 }
