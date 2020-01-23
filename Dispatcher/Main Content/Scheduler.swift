@@ -28,14 +28,11 @@ struct Scheduler: View {
     var body: some View {
         ZStack (alignment: .bottom) {
             HStack(spacing: spacing) {
-                if topic == .async {
-                    async
-                        .id(UUID())
-                } else if topic == .sync || topic == .serial {
-                    syncOrserial
-                        .id(UUID())
-                } else if topic == .concurrent {
+                if topic == .concurrent {
                     concurrent
+                        .id(UUID())
+                } else {
+                    syncOrAsyncOrserial
                         .id(UUID())
                 }
             }
@@ -55,33 +52,25 @@ struct Scheduler: View {
         switch topic {
         case .sync: return TaskGenerator.createSyncTasks()
         case .async: return TaskGenerator.createAsyncTasks()
-        default: return TaskGenerator.createSyncTasks()
+        case .concurrent: return TaskGenerator.createConcurrentTasks()
+        case .serial: return TaskGenerator.createSerialTasks()
         }
     }
     
-    private var async: some View {
+    private var syncOrAsyncOrserial: some View {
         ForEach(0..<topic.numberOfQueues, id: \.self) { num in
             num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
                 .zIndex(1)
-                : Queue(topic: self.topic, type: .global, tasks: self.tasks)
-                    .zIndex(0)
-        }
-    }
-    
-    private var syncOrserial: some View {
-        ForEach(0..<topic.numberOfQueues, id: \.self) { num in
-            num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks)
-                .zIndex(1)
-                : Queue(topic: .serial, type: .privateSerial, tasks: self.tasks)
+                : Queue(topic: self.topic, type: .privateSerial, tasks: self.tasks)
                     .zIndex(0)
         }
     }
     
     private var concurrent: some View {
         ForEach(0..<topic.numberOfQueues, id: \.self) { num in
-            num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks)
+            num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
                 .zIndex(1)
-                : Queue(topic: .concurrent, type: .global, tasks: self.tasks)
+                : Queue(topic: self.topic, type: .global, tasks: self.tasks)
                     .zIndex(0)
         }
     }

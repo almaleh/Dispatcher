@@ -62,7 +62,6 @@ struct Queue: View {
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
-                            // TODO identify threads in tasks
                             Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: num)
                         }
                     }
@@ -116,7 +115,7 @@ struct Queue: View {
         let workItem = DispatchWorkItem {
             withAnimation(.easeOut(duration: 0.35)) {
                 switch self.topic {
-                case .async, .concurrent:
+                case .concurrent:
                     self.threads = 2
                 default: self.threads = 1
                 }

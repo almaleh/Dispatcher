@@ -16,11 +16,11 @@ struct Explanations {
     """
 
     static let sync = """
-    The caller queue is blocked, and work runs on caller thread.
+    Sync blocks the caller, and its work runs on the caller thread.
     """
 
     static let serial = """
-    Serial queues can only use one thread.
+    Serial queues can only use one thread. Execution order is guaranteed.
     """
 
     static let concurrent = """
