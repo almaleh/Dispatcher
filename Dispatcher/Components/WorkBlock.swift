@@ -56,7 +56,7 @@ struct WorkBlock: View {
         
         withAnimation(Animation
             .easeInOut(duration: self.taskDuration * 0.2)
-            .delay(startDelay)) {
+            .delay(task.displayDelay)) {
                 self.progress = 1.0
         }
         
@@ -77,6 +77,6 @@ struct WorkBlock: View {
 
 struct WorkBlock_Previews: PreviewProvider {
     static var previews: some View {
-        WorkBlock(task: Task(type: .workBlock(.red, "🐶"), startTime: Date(), duration: 1))
+        WorkBlock(task: Task(.workBlock(.red, "🐶"), Date(), 1))
     }
 }

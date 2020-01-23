@@ -78,7 +78,7 @@ struct CodeConsole: View {
 struct CodeConsole_Previews: PreviewProvider {
     static var previews: some View {
         CodeConsole(tasks: [
-            Task(type: .workBlock(.red, "⚾️"), startTime: Date(), duration: 5.0)
+            Task(.workBlock(.red, "⚾️"), Date(), 5.0)
         ])
     }
 }

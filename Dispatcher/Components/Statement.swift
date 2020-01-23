@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum DispatchType: String {
-    case sync, async
+    case sync, async, done = "Main Queue Done"
     
     var title: String {
         return rawValue.capitalized
@@ -19,6 +19,7 @@ enum DispatchType: String {
         switch self {
         case .sync: return .red
         case .async: return .blue
+        case .done: return .purple
         }
     }
 }
@@ -74,9 +75,11 @@ struct Statement: View {
         Text(type.title)
             .foregroundColor(.white)
             .padding(8)
+            .frame(maxWidth: 150)
             .background(type.color)
             .clipShape(Capsule())
             .opacity(currentOpacity)
+            .multilineTextAlignment(.center)
             .animation(.default)
     }
     
@@ -101,6 +104,6 @@ struct Statement: View {
 
 struct Statement_Previews: PreviewProvider {
     static var previews: some View {
-        Statement(type: .sync, task: Task(type: .statement(.sync), startTime: Date(), duration: 0.5))
+        Statement(type: .done, task: Task(.statement(.done), Date(), Date(), 0.5))
     }
 }

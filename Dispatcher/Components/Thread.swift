@@ -57,7 +57,7 @@ struct Thread: View {
             
             if self.topic == .sync && self.type != .main {
                 let task = self.tasks.first?.startTime ?? Date()
-                delay = task.timeIntervalSince(Date()) * 0.8
+                delay = task.timeIntervalSince(Date()) * 0.92
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -84,7 +84,7 @@ struct Thread: View {
     func unrollThread() {
         self.emojiOpacity = 1.0
         self.emojiScale = 1.0
-        self.threadLength = 1
+        self.threadLength = 0.7
     }
     
     init(topic: Topic, type: QueueType, tasks: [Task], threadID: Int) {
