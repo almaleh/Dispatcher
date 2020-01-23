@@ -48,29 +48,6 @@ struct Queue: View {
     
     @State private var syncThreadOffset: CGFloat = 0.0
     
-    init(topic: Topic, type: QueueType, tasks: [Task]) {
-        self.topic = topic
-        self.type = type
-        // only register the tasks meant for this queue
-        self.allTasks = tasks.filter { task in
-            if type == .main {
-                return task.type.isMainThreadTask
-            } else {
-                // include both types of blocks, sync & async
-                return task.type.isWorkBlock
-            }
-        }
-        self.tasks = tasks.filter { task in
-            if type == .main {
-                return task.type.isMainThreadTask
-            } else {
-                return !task.type.isMainThreadTask
-            }
-        }
-        let threads = type == .main ? 1 : 0
-        _threads = State(initialValue: threads)
-    }
-    
     var body: some View {
         VStack {
             Text(type.rawValue)
@@ -135,14 +112,41 @@ struct Queue: View {
         threads = 0
         workItem?.cancel()
         workItem = nil
+        
         let workItem = DispatchWorkItem {
-            switch self.topic {
-            case .async, .concurrent: self.threads = 2
-            default: self.threads = 1
+            withAnimation(.easeOut(duration: 0.35)) {
+                switch self.topic {
+                case .async, .concurrent:
+                    self.threads = 2
+                default: self.threads = 1
+                }
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
         self.workItem = workItem
+    }
+    
+    init(topic: Topic, type: QueueType, tasks: [Task]) {
+        self.topic = topic
+        self.type = type
+        // only register the tasks meant for this queue
+        self.allTasks = tasks.filter { task in
+            if type == .main {
+                return task.type.isMainThreadTask
+            } else {
+                // include both types of blocks, sync & async
+                return task.type.isWorkBlock
+            }
+        }
+        self.tasks = tasks.filter { task in
+            if type == .main {
+                return task.type.isMainThreadTask
+            } else {
+                return !task.type.isMainThreadTask
+            }
+        }
+        let threads = type == .main ? 1 : 0
+        _threads = State(initialValue: threads)
     }
 }
 

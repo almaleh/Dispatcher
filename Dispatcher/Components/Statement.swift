@@ -95,7 +95,7 @@ struct Statement: View {
     }
     
     func disappear() {
-        withAnimation(.easeOut(duration: 0.6)) {
+        withAnimation(.easeOut(duration: 0.70)) {
             self.isPulsing = false
             self.currentOpacity = 0.0
         }

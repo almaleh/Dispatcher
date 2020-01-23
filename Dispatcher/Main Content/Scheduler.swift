@@ -28,11 +28,11 @@ struct Scheduler: View {
     var body: some View {
         ZStack (alignment: .bottom) {
             HStack(spacing: spacing) {
-                if topic == .sync || topic == .async {
-                    syncOrAsync
+                if topic == .async {
+                    async
                         .id(UUID())
-                } else if topic == .serial {
-                    serial
+                } else if topic == .sync || topic == .serial {
+                    syncOrserial
                         .id(UUID())
                 } else if topic == .concurrent {
                     concurrent
@@ -59,7 +59,7 @@ struct Scheduler: View {
         }
     }
     
-    private var syncOrAsync: some View {
+    private var async: some View {
         ForEach(0..<topic.numberOfQueues, id: \.self) { num in
             num == 0 ? Queue(topic: self.topic, type: .main, tasks: self.tasks)
                 .zIndex(1)
@@ -68,7 +68,7 @@ struct Scheduler: View {
         }
     }
     
-    private var serial: some View {
+    private var syncOrserial: some View {
         ForEach(0..<topic.numberOfQueues, id: \.self) { num in
             num == 0 ? Queue(topic: .serial, type: .main, tasks: self.tasks)
                 .zIndex(1)
@@ -81,7 +81,7 @@ struct Scheduler: View {
         ForEach(0..<topic.numberOfQueues, id: \.self) { num in
             num == 0 ? Queue(topic: .concurrent, type: .main, tasks: self.tasks)
                 .zIndex(1)
-                : Queue(topic: .concurrent, type: .privateConcurrent, tasks: self.tasks)
+                : Queue(topic: .concurrent, type: .global, tasks: self.tasks)
                     .zIndex(0)
         }
     }

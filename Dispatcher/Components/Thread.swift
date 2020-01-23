@@ -65,7 +65,8 @@ struct Thread: View {
             }
             
             // Delay before showing tasks
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            let taskDisplayDelay = self.topic == .async || self.topic == .concurrent ? 0.5 : 1.5
+            DispatchQueue.main.asyncAfter(deadline: .now() + taskDisplayDelay) {
                 self.visibleTasks = self.tasks
             }
         }
