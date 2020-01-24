@@ -30,7 +30,10 @@ DispatchQueue.global().async {
     }
 }
 """
-let sampleA = ["First then second", "Both finish simultaneously", "Second then first"]
+let sampleA = ["First then second", "Both finish simultaneously", "Second then first", "WAPO"]
 let correctA = 1
 
 let sampleQuestion = Question(question: sampleQ, code: sampleC, answers: sampleA, correctAnswer: correctA)
+
+let sampleQuestionsArray = [Question](repeatElement(sampleQuestion, count: 10))
+

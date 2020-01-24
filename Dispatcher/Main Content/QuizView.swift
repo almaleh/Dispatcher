@@ -30,7 +30,7 @@ struct QuizView: View {
             }
             .font(.title)
             .sheet(isPresented: $quizPresented) {
-                QuestionView(questionNumber: 0, question: sampleQuestion, score: self.$score)
+                QuestionView(isPresented: self.$quizPresented, score: self.$score)
             }
             Spacer()
             Button("Read Article") {
