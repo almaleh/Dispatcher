@@ -20,6 +20,7 @@ struct ContentView: View {
                     Text("Explanation")
             }
             QuizView()
+//                QuestionView(questionNumber: 0, question: sampleQuestion)
                 .tabItem {
                     Image(systemName: "text.badge.checkmark")
                     Text("Quiz")
