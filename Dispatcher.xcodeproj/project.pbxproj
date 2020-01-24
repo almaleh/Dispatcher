@@ -16,7 +16,6 @@
 		2834C12D23D299A900347C96 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C12C23D299A900347C96 /* Queue.swift */; };
 		2834C12F23D2A23600347C96 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C12E23D2A23600347C96 /* Thread.swift */; };
 		2834C13123D358BE00347C96 /* WavyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834C13023D358BE00347C96 /* WavyLine.swift */; };
-		287B40A923D56E17005960B5 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B40A823D56E17005960B5 /* BlurView.swift */; };
 		287B40AB23D7D707005960B5 /* Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B40AA23D7D707005960B5 /* Subtitles.swift */; };
 		287B40AD23D7DD39005960B5 /* Explanations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287B40AC23D7DD39005960B5 /* Explanations.swift */; };
 		289E45D123DA7BBC007AD13F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E45D023DA7BBC007AD13F /* Task.swift */; };
@@ -40,7 +39,6 @@
 		2834C12C23D299A900347C96 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		2834C12E23D2A23600347C96 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		2834C13023D358BE00347C96 /* WavyLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavyLine.swift; sourceTree = "<group>"; };
-		287B40A823D56E17005960B5 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		287B40AA23D7D707005960B5 /* Subtitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtitles.swift; sourceTree = "<group>"; };
 		287B40AC23D7DD39005960B5 /* Explanations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explanations.swift; sourceTree = "<group>"; };
 		289E45D023DA7BBC007AD13F /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 				2834C13023D358BE00347C96 /* WavyLine.swift */,
 				28157B2223D619BD00C1C751 /* CodeConsole.swift */,
 				287B40AA23D7D707005960B5 /* Subtitles.swift */,
-				287B40A823D56E17005960B5 /* BlurView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -250,7 +247,6 @@
 				28157B2523D61F3400C1C751 /* TaskGenerator.swift in Sources */,
 				287B40AB23D7D707005960B5 /* Subtitles.swift in Sources */,
 				280E905023D5391400DF8EF4 /* ViewTest.swift in Sources */,
-				287B40A923D56E17005960B5 /* BlurView.swift in Sources */,
 				28157B2323D619BD00C1C751 /* CodeConsole.swift in Sources */,
 				2834C12F23D2A23600347C96 /* Thread.swift in Sources */,
 				287B40AD23D7DD39005960B5 /* Explanations.swift in Sources */,

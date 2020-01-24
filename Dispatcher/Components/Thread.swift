@@ -19,6 +19,7 @@ struct Thread: View {
     let topic: Topic
     let type: QueueType
     let tasks: [Task]
+    let isShadow: Bool
     
     var body: some View {
         VStack {
@@ -55,7 +56,7 @@ struct Thread: View {
             
             var delay = 0.0
             
-            if self.topic == .sync && self.type != .main {
+            if self.topic == .sync && self.type != .main || self.isShadow {
                 delay = 999
             }
             
@@ -93,6 +94,7 @@ struct Thread: View {
         self.topic = topic
         self.type = type
         self.tasks = tasks.filter { $0.threadID == threadID }
+        self.isShadow = isShadow
     }
 }
 

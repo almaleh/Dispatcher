@@ -43,7 +43,7 @@ struct Queue: View {
     
     var syncQueuePadding: CGFloat {
         guard syncInProgress else { return 0.0 }
-        return type == .main ? 0.0 : width * -0.75
+        return type == .main ? width * -0.85 : width * -0.35
     }
     
     @State private var syncThreadOffset: CGFloat = 0.0
@@ -60,11 +60,23 @@ struct Queue: View {
                     .frame(minWidth: width)
                     .padding(syncQueuePaddingEdge, syncQueuePadding)
                 if type == .main || showThreads {
-                    HStack {
-                        ForEach(0..<threads, id: \.self) { num in
-                            self.createThreads(id: num)
+                    ZStack (alignment: .leading) {
+                        HStack {
+                            if self.topic == .sync && type == .main {
+                                Spacer()
+                            }
+                            ForEach(0..<threads, id: \.self) { num in
+                                self.createThreads(id: num)
+                                    .frame(width: self.width)
+                            }
+                        }
+                        if self.topic == .sync && type == .main {
+                            createMainThread(id: 0, isShadow: true)
+                                .frame(width: self.width)
+                                .offset(x: width * 0.05, y: 0)
                         }
                     }
+                    .padding(syncQueuePaddingEdge, syncQueuePadding)
                 }
             }
             .offset(x: self.syncThreadOffset, y: 0)
@@ -81,18 +93,19 @@ struct Queue: View {
         }
     }
     
+    // Animates the queues to share thread
     func processSyncTask() {
         for task in allTasks {
             if case .workBlock(.red, _) = task.taskType {
                 
-                let animDuration = 0.75
+                let animDuration = 1.75
                 let taskStart = task.startTime.timeIntervalSince(Date()) - animDuration
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + taskStart) {
                     withAnimation(.easeInOut(duration: animDuration)) {
                         self.syncInProgress = true
-                        self.syncThreadOffset = self.type == .main ?
-                            self.width / 2.0 : 0.0
+//                        self.syncThreadOffset = self.type == .main ?
+//                            self.width * 0.75 : 0.0
                     }
                 }
                 
@@ -128,7 +141,6 @@ struct Queue: View {
     func createThreads(id: Int) -> some View {
         ZStack {
             if self.topic == .sync && type == .main {
-                createMainThread(id: id, isShadow: true)
                 createMainThread(id: id, isShadow: false)
             } else {
                 Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: id)
@@ -138,7 +150,7 @@ struct Queue: View {
     
     func createMainThread(id: Int, isShadow: Bool) -> some View {
         let tasks = self.tasks.filter { isShadow ? $0.taskType.isShadowThreadTask : !$0.taskType.isShadowThreadTask }
-        return Thread(topic: self.topic, type: self.type, tasks: tasks, threadID: id)
+        return Thread(topic: self.topic, type: self.type, tasks: tasks, threadID: id, isShadow: isShadow)
     }
     
     init(topic: Topic, type: QueueType, tasks: [Task]) {
