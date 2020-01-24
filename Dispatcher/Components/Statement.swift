@@ -62,7 +62,7 @@ struct Statement: View {
             self.startPulsing()
             var startDelay: Double = self.task.startDelay
             let extraDuration = self.type == .sync ?
-                self.statementDuration : 0.0
+                self.statementDuration * 0.9 : 0.0
             
             startDelay = Double(Int(startDelay))
             DispatchQueue.main.asyncAfter(deadline: .now() + extraDuration + startDelay) {

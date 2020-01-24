@@ -30,7 +30,8 @@ enum TaskType {
 }
 
 struct Task {
-    let type: TaskType
+    let taskType: TaskType
+    let queueType: QueueType?
     let displayTime: Date?
     let startTime: Date
     let duration: Double
@@ -45,20 +46,29 @@ struct Task {
         max(startTime.timeIntervalSince(Date()), 0.0)
     }
     
-    init(_ type: TaskType, _ displayTime: Date?, _ startTime: Date, _ duration: Double, _ threadID: Int = 0) {
-        self.type = type
+    init(_ type: TaskType, _ queueType: QueueType?, _ displayTime: Date?, _ startTime: Date, _ duration: Double, _ threadID: Int = 0) {
+        self.taskType = type
+        self.queueType = queueType
         self.displayTime = displayTime
         self.startTime = startTime
         self.duration = duration
         self.threadID = threadID
     }
     
+    init(_ type: TaskType, _ queueType: QueueType?, _ displayTime: Date? = nil, _ startTime: Date, _ duration: Double) {
+        self.init(type, queueType, displayTime, startTime, duration, 0)
+    }
+    
+    init(_ type: TaskType, _ queueType: QueueType?, _ startTime: Date, _ duration: Double) {
+        self.init(type, queueType, nil, startTime, duration, 0)
+    }
+    
+    init(_ type: TaskType, _ displayTime: Date, _ startTime: Date, _ duration: Double) {
+        self.init(type, nil, displayTime, startTime, duration, 0)
+    }
+    
     init(_ type: TaskType, _ startTime: Date, _ duration: Double, _ threadID: Int = 0) {
-        self.type = type
-        self.displayTime = nil
-        self.startTime = startTime
-        self.duration = duration
-        self.threadID = threadID
+        self.init(type, nil, nil, startTime, duration, threadID)
     }
 }
 
@@ -78,20 +88,15 @@ enum TaskGenerator {
         let shortPause = 1.0
         
         let syncStart = Date().addingTimeInterval(syncStartDelay)
-        tasks.append(Task(.statement(.sync), syncStart, duration))
-        tasks.append(Task(.workBlock(.red, emojis.removeFirst()), syncStart, duration))
+        
+        tasks.append(Task(.statement(.sync), .main, syncStart, duration))
+        tasks.append(Task(.workBlock(.red, emojis.removeFirst()), .main, syncStart, duration))
         
         let asyncStartStatement1 = Date().addingTimeInterval(syncStartDelay + duration) + statementPause
-        let asyncStartBlock1 = Date().addingTimeInterval(syncStartDelay + duration) + blockPause + shortPause * 1.5
-        tasks.append(Task(.statement(.async), asyncStartStatement1, duration))
-        tasks.append(Task(.workBlock(.blue, emojis.removeFirst()), asyncStartBlock1, duration))
+        let asyncStartBlock1 = Date().addingTimeInterval(syncStartDelay + duration)
+        tasks.append(Task(.workBlock(.purple, emojis.removeFirst()), .main, Date(), asyncStartBlock1, duration))
         
-        let asyncStartStatement2 = asyncStartStatement1
-        let asyncStartBlock2 = Date().addingTimeInterval(syncStartDelay + duration * 2 - shortPause * 0.5)
-        tasks.append(Task(.statement(.async), asyncStartStatement2, duration))
-        tasks.append(Task(.workBlock(.blue, emojis.removeFirst()), asyncStartBlock1, asyncStartBlock2, duration))
-        
-        tasks.append(Task(.statement(.done), asyncStartStatement2 + shortPause * 2.0, duration))
+        tasks.append(Task(.statement(.done), asyncStartStatement1 + shortPause * 2.0, duration))
         
         return tasks
     }
@@ -105,17 +110,13 @@ enum TaskGenerator {
         let startDelay = 4.5
         let blockPause = 0.75 // adjust as needed
         let statementPause = blockPause + 0.25
-        let shortPause = 1.0
         
         let asyncStartStatement1 = Date().addingTimeInterval(startDelay)
         tasks.append(Task(.statement(.async), asyncStartStatement1, duration))
         tasks.append(Task(.workBlock(.blue, emojis.removeFirst()), asyncStartStatement1, duration))
         
         let asyncStartStatement2 = asyncStartStatement1 + statementPause
-        let asyncStartBlock2 = Date().addingTimeInterval(startDelay + duration - shortPause * 2.5)
-        
-        tasks.append(Task(.statement(.async), asyncStartStatement2, duration))
-        tasks.append(Task(.workBlock(.blue, emojis.removeFirst()), asyncStartStatement1 + statementPause, asyncStartBlock2, duration))
+        tasks.append(Task(.workBlock(.purple, emojis.removeFirst()), asyncStartStatement1 + statementPause, asyncStartStatement1, duration))
         
         tasks.append(Task(.statement(.done), asyncStartStatement2 + 1.5, duration))
         
@@ -171,7 +172,7 @@ enum TaskGenerator {
         
         
         let asyncStartStatement3 = asyncStartStatement2 + statementPause
-        let asyncStartBlock3 = Date().addingTimeInterval(startDelay + duration * 2 - shortPause * 2.5)
+        let asyncStartBlock3 = Date().addingTimeInterval(startDelay + duration * 2 - shortPause * 5)
         
         tasks.append(Task(.statement(.async), asyncStartStatement3, duration))
         tasks.append(Task(.workBlock(.blue, emojis.removeFirst()), asyncStartStatement2 + statementPause, asyncStartBlock3, duration))

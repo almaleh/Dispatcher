@@ -15,7 +15,6 @@ struct WorkBlock: View {
     @State private var borderOpacity: Double = 1.0
     
     private let task: Task
-    private let possibleBlockColors: [Color] = [.purple]
     
     private let color: Color
     private let emoji: String
@@ -41,14 +40,15 @@ struct WorkBlock: View {
     
     init (task: Task) {
         self.task = task
-        if case .workBlock(let color, let emoji) = task.type {
+        if case .workBlock(let color, let emoji) = task.taskType {
             self.color = color
             self.emoji = emoji
         } else {
             self.color = .red
             self.emoji = "🐷"
         }
-        _progress = State(initialValue: 0.0)
+        let progressStart: CGFloat = color == .purple ? 1.0 : 0.0
+        _progress = State(initialValue: progressStart)
     }
     
     func startTask() {

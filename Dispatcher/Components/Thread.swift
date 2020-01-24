@@ -56,8 +56,7 @@ struct Thread: View {
             var delay = 0.0
             
             if self.topic == .sync && self.type != .main {
-                let task = self.tasks.first?.startTime ?? Date()
-                delay = task.timeIntervalSince(Date()) * 0.92
+                delay = 999
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
@@ -74,7 +73,7 @@ struct Thread: View {
     
     func getTask(at index: Int) -> AnyView {
         let task = visibleTasks[index]
-        switch task.type {
+        switch task.taskType {
         case .workBlock:
             return AnyView(WorkBlock(task: task))
         case .statement(let type):

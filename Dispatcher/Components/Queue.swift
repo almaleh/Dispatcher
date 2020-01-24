@@ -62,7 +62,9 @@ struct Queue: View {
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
-                            Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: num)
+                            Group {
+                                Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: num)
+                            }
                         }
                     }
                 }
@@ -83,7 +85,7 @@ struct Queue: View {
     
     func processSyncTask() {
         for task in allTasks {
-            if case .workBlock(.red, _) = task.type {
+            if case .workBlock(.red, _) = task.taskType {
                 
                 let animDuration = 0.75
                 let taskStart = task.startTime.timeIntervalSince(Date()) - animDuration
@@ -131,17 +133,17 @@ struct Queue: View {
         // only register the tasks meant for this queue
         self.allTasks = tasks.filter { task in
             if type == .main {
-                return task.type.isMainThreadTask
+                return task.taskType.isMainThreadTask
             } else {
                 // include both types of blocks, sync & async
-                return task.type.isWorkBlock
+                return task.taskType.isWorkBlock
             }
         }
         self.tasks = tasks.filter { task in
             if type == .main {
-                return task.type.isMainThreadTask
+                return task.taskType.isMainThreadTask
             } else {
-                return !task.type.isMainThreadTask
+                return !task.taskType.isMainThreadTask
             }
         }
         let threads = type == .main ? 1 : 0

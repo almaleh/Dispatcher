@@ -50,11 +50,11 @@ struct CodeConsole: View {
     }
     
     init(tasks: [Task]) {
-        self.tasks = tasks.filter { $0.type.isWorkBlock }
+        self.tasks = tasks.filter { $0.taskType.isWorkBlock }
     }
     
     func processTask(_ task: Task) {
-        if case .workBlock(_, let emoji) = task.type {
+        if case .workBlock(_, let emoji) = task.taskType {
             let start = task.startDelay
             let baseDelay: Double = 1
             let duration = task.duration * 0.7
