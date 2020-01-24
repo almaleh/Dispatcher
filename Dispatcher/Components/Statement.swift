@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum DispatchType: String {
-    case sync, async, done = "Main Queue Done"
+    case sync, async, shadow = "Sync", done = "Main Queue Done"
     
     var title: String {
         return rawValue.capitalized
@@ -20,6 +20,7 @@ enum DispatchType: String {
         case .sync: return .red
         case .async: return .blue
         case .done: return .purple
+        case .shadow: return .clear
         }
     }
 }
@@ -61,7 +62,7 @@ struct Statement: View {
         .onAppear(perform: {
             self.startPulsing()
             var startDelay: Double = self.task.startDelay
-            let extraDuration = self.type == .sync ?
+            let extraDuration = self.type == .sync || self.type == .shadow ?
                 self.statementDuration * 0.9 : 0.0
             
             startDelay = Double(Int(startDelay))
@@ -73,7 +74,7 @@ struct Statement: View {
     
     var baseStatement: some View {
         Text(type.title)
-            .foregroundColor(.white)
+            .foregroundColor(type == .shadow ? .clear : .white)
             .padding(8)
             .frame(maxWidth: 150)
             .background(type.color)

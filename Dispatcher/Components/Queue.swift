@@ -62,9 +62,7 @@ struct Queue: View {
                 if type == .main || showThreads {
                     HStack {
                         ForEach(0..<threads, id: \.self) { num in
-                            Group {
-                                Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: num)
-                            }
+                            self.createThreads(id: num)
                         }
                     }
                 }
@@ -125,6 +123,22 @@ struct Queue: View {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
         self.workItem = workItem
+    }
+    
+    func createThreads(id: Int) -> some View {
+        ZStack {
+            if self.topic == .sync && type == .main {
+                createMainThread(id: id, isShadow: true)
+                createMainThread(id: id, isShadow: false)
+            } else {
+                Thread(topic: self.topic, type: self.type, tasks: self.tasks, threadID: id)
+            }
+        }
+    }
+    
+    func createMainThread(id: Int, isShadow: Bool) -> some View {
+        let tasks = self.tasks.filter { isShadow ? $0.taskType.isShadowThreadTask : !$0.taskType.isShadowThreadTask }
+        return Thread(topic: self.topic, type: self.type, tasks: tasks, threadID: id)
     }
     
     init(topic: Topic, type: QueueType, tasks: [Task]) {

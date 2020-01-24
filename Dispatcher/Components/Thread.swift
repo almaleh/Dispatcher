@@ -78,6 +78,8 @@ struct Thread: View {
             return AnyView(WorkBlock(task: task))
         case .statement(let type):
             return AnyView(Statement(type: type, task: task))
+        case .shadow:
+            return AnyView(Statement(type: .shadow, task: task))
         }
     }
     
@@ -87,7 +89,7 @@ struct Thread: View {
         self.threadLength = 0.7
     }
     
-    init(topic: Topic, type: QueueType, tasks: [Task], threadID: Int) {
+    init(topic: Topic, type: QueueType, tasks: [Task], threadID: Int, isShadow: Bool = false) {
         self.topic = topic
         self.type = type
         self.tasks = tasks.filter { $0.threadID == threadID }
