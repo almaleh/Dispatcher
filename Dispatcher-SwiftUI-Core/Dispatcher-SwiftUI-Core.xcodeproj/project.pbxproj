@@ -140,8 +140,8 @@
 		2821055B23DCDCB300BD191C /* Quiz Components */ = {
 			isa = PBXGroup;
 			children = (
-				2821057423DCDED200BD191C /* QuestionButton.swift */,
 				2821057223DCDED200BD191C /* QuestionView.swift */,
+				2821057423DCDED200BD191C /* QuestionButton.swift */,
 				2821057523DCDED300BD191C /* QuizScoreSheet.swift */,
 				2821057323DCDED200BD191C /* ScoreButton.swift */,
 			);
@@ -404,12 +404,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.besher.Dispatcher-SwiftUI-Core";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				"SDKROOT[arch=*]" = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -432,12 +430,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.besher.Dispatcher-SwiftUI-Core";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				"SDKROOT[arch=*]" = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 			};
 			name = Release;
 		};

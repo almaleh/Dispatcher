@@ -16,7 +16,7 @@ struct QuizScoreSheet: View {
     
     var body: some View {
         VStack (spacing: 10) {
-            Text("The Concurrency Quiz")
+            Text("#ConcurrencyQuiz")
                 .font(.largeTitle)
             Text("Your final score is...")
                 .font(.title)

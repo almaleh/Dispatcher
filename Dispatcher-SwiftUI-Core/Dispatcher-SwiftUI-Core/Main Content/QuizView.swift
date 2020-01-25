@@ -21,12 +21,10 @@ struct QuizView: View {
     var startScreen: some View {
         VStack (spacing: 20) {
             Spacer()
-            Text("Welcome to \nthe GCD Quiz!")
+            Text("Welcome to \nthe Concurrency Quiz!")
                 .multilineTextAlignment(.center)
                 .font(.largeTitle)
-            Text("This is a companion app to my article on concurrency.")
-                .multilineTextAlignment(.center)
-                Text("I suggest trying the quiz before and then after reading the article to see how your score changes")
+            Text("Try the quiz before and after reading the article to see how your score changes")
                 .multilineTextAlignment(.center)
             Button("Start Quiz") {
                 self.quizPresented = true
@@ -38,7 +36,7 @@ struct QuizView: View {
                                   explanation: .constant(false))
             }
             Spacer()
-            Button("Read Article") {
+            Button("Read the Article") {
                 self.articlePresented = true
             }
             .font(.headline)
@@ -46,8 +44,12 @@ struct QuizView: View {
                 Alert(title: Text("Coming soon!"))
             }
             Text("by Besher Al Maleh")
+            Text("Don't forget to check the other tab!")
+                .multilineTextAlignment(.center)
+                .font(.caption)
+                .padding()
         }
-    .padding()
+        .padding()
     }
 }
 

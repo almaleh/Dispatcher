@@ -111,6 +111,7 @@ struct QuestionView: View {
             Button("Dismiss") {
                 self.explanation = false
             }
+            .font(.title)
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: 330)

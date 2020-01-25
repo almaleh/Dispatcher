@@ -14,15 +14,15 @@ public struct ContentView: View {
     
     public var body: some View {
         TabView {
-            DiagramView(didStart: $didStart)
-                .tabItem {
-                    Image(systemName: "book")
-                    Text("Explanation")
-            }
             QuizView()
                 .tabItem {
                     Image(systemName: "text.badge.checkmark")
                     Text("Quiz")
+            }
+            DiagramView(didStart: $didStart)
+                .tabItem {
+                    Image(systemName: "book")
+                    Text("Explanation")
             }
         }
     }

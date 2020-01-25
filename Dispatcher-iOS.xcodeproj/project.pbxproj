@@ -35,7 +35,7 @@
 		2821056123DCDD9A00BD191C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2821058923DCDF0E00BD191C /* Dispatcher_SwiftUI_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Dispatcher_SwiftUI_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2850F6D123DCF03A0015C892 /* Dispatcher_SwiftUI_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Dispatcher_SwiftUI_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		28E6418F23D1699000C7A860 /* Dispatcher-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dispatcher-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28E6418F23D1699000C7A860 /* Dispatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dispatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28E6419823D1699100C7A860 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28E6419B23D1699100C7A860 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		28E6419E23D1699100C7A860 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		28E6419023D1699000C7A860 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28E6418F23D1699000C7A860 /* Dispatcher-iOS.app */,
+				28E6418F23D1699000C7A860 /* Dispatcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 			);
 			name = "Dispatcher-iOS";
 			productName = Dispatcher;
-			productReference = 28E6418F23D1699000C7A860 /* Dispatcher-iOS.app */;
+			productReference = 28E6418F23D1699000C7A860 /* Dispatcher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -324,7 +324,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.besher.Dispatcher;
-				PRODUCT_NAME = "Dispatcher-iOS";
+				PRODUCT_NAME = Dispatcher;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -348,7 +348,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.besher.Dispatcher;
-				PRODUCT_NAME = "Dispatcher-iOS";
+				PRODUCT_NAME = Dispatcher;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
