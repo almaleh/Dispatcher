@@ -12,7 +12,7 @@ struct QuestionButton: View {
     
     let label: String
     
-    @Binding var selectedAnswer: Int
+    @Binding var selectedAnswer: Int?
     let id: Int
     
     var foreground: Color {
@@ -24,14 +24,16 @@ struct QuestionButton: View {
     }
     
     var body: some View {
-        Button(self.label) {
+        Button(action: {
             self.selectedAnswer = self.id
+        }) {
+            Text(self.label)
+                .foregroundColor(foreground)
+                .padding(8)
+                .frame(minWidth: 300)
+                .background(background)
+                .cornerRadius(12)
         }
-        .foregroundColor(foreground)
-        .padding(8)
-        .frame(minWidth: 300)
-        .background(background)
-        .cornerRadius(12)
     }
 }
 

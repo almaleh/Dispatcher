@@ -8,22 +8,36 @@
 
 import SwiftUI
 
+struct QuestionContainer: View {
+    
+    @State private var quizProcessor = QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        Group {
+            if quizProcessor.questionNumber > quizProcessor.questionsArray.count {
+                QuizScoreSheet(quizProcessor: $quizProcessor,
+                               isPresented: $isPresented)
+            } else {
+                QuestionView(quizProcessor: $quizProcessor)
+            }
+        }
+    }
+    
+}
+
 struct QuestionView: View {
     
-    let questionsArray: [Question] = sampleQuestionsArray
-    var question: Question { questionsArray[questionNumber] }
+    @State private var selectedAnswer: Int?
+    private var answerWasSelected: Bool { selectedAnswer != nil }
+    private var question: Question { quizProcessor.question }
+    private var answers: [String] { question.answers }
     
-    @State private var questionNumber: Int = 0
-    @State private var selectedAnswer: Int = -1
-    
-    private var answerWasSelected: Bool { selectedAnswer != -1 }
-    
-    @Binding var isPresented: Bool
-    @Binding var score: [Int: Int]
+    @Binding var quizProcessor: QuizProcessor
     
     var body: some View {
         VStack (alignment: .center, spacing: 20) {
-            Text("Question \(questionNumber)/10")
+            Text("Question \(quizProcessor.questionNumber)/10")
             Text(question.question)
                 .font(.headline)
                 .multilineTextAlignment(.center)
@@ -40,16 +54,15 @@ struct QuestionView: View {
             )
                 .cornerRadius(4)
             VStack (spacing: 10) {
-                ForEach(0..<question.answers.count, id: \.self) { idx in
-                    
-                    QuestionButton(label: self.question.answers[idx],
+                ForEach(0..<answers.count, id: \.self) { idx in
+                    QuestionButton(label: self.answers[idx],
                                    selectedAnswer: self.$selectedAnswer, id: idx)
                 }
             }
             Spacer()
             Button("Confirm") {
-                self.questionNumber += 1
-                self.selectedAnswer = -1
+                self.quizProcessor.answered(with: self.selectedAnswer ?? 0)
+                self.selectedAnswer = nil
             }
             .opacity(answerWasSelected ? 1.0 : 0.0)
             .font(.title)
@@ -60,6 +73,6 @@ struct QuestionView: View {
 
 struct QuizStartScreen_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView(isPresented: .constant(false), score: .constant([0:0]))
+        QuestionView(quizProcessor: .constant(QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)))
     }
 }

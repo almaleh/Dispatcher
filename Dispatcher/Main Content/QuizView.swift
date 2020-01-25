@@ -10,7 +10,6 @@ import SwiftUI
 
 struct QuizView: View {
     
-    @State private var score = [Int: Int]()
     @State private var quizPresented: Bool = false
     
     var body: some View {
@@ -30,7 +29,7 @@ struct QuizView: View {
             }
             .font(.title)
             .sheet(isPresented: $quizPresented) {
-                QuestionView(isPresented: self.$quizPresented, score: self.$score)
+                QuestionContainer(isPresented: self.$quizPresented)
             }
             Spacer()
             Button("Read Article") {

@@ -1,0 +1,41 @@
+[
+    {
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Loop A finishes first", 
+            "Loop B finishes first",
+            "Order is not guaranteed", 
+            "Does not compile",
+            "Crashes due to race condition",
+            "Crahes due to deadlock"
+        ],
+        "correct_answer": 2
+    }, 
+    {
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Loop A finishes first", 
+            "Loop B finishes first",
+            "Order is not guaranteed", 
+            "Does not compile",
+            "Crashes due to race condition",
+            "Crahes due to deadlock"
+        ],
+        "correct_answer": 2
+    }, 
+    {
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Loop A finishes first", 
+            "Loop B finishes first",
+            "Order is not guaranteed", 
+            "Does not compile",
+            "Crashes due to race condition",
+            "Crahes due to deadlock"
+        ],
+        "correct_answer": 2
+    }
+]

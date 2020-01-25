@@ -8,32 +8,30 @@
 
 import Foundation
 
-struct Question {
+struct Question: Decodable {
+    
     let question: String
-    let code: String
+    var code: String
     let answers: [String]
     let correctAnswer: Int
-}
-
-let sampleQ = "What is the outcome of this code?"
-let sampleC = """
-                                                    
-DispatchQueue.main.async {
-    for i in 1...10 {
-        print(i)
+    
+    static func questionsArray() -> [Question] {
+        guard let url = Bundle.main.url(forResource: "quiz", withExtension: "json") else { fatalError("Missing bundle data") }
+        guard let data = try? Data(contentsOf: url) else { fatalError("Missing bundle data") }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        guard var questions = try? decoder.decode([Question].self, from: data) else { fatalError("Missing bundle data") }
+        
+        for i in 0..<questions.count {
+            questions[i].code = QuizCode.list[i]
+        }
+        
+        return questions
     }
-}
-
-DispatchQueue.global().async {
-    for i in 51...60 {
-        print(i)
+    
+    private static func readQuestionsCode() -> [String] {
+        QuizCode.list
     }
+    
 }
-"""
-let sampleA = ["First then second", "Both finish simultaneously", "Second then first", "WAPO"]
-let correctA = 1
-
-let sampleQuestion = Question(question: sampleQ, code: sampleC, answers: sampleA, correctAnswer: correctA)
-
-let sampleQuestionsArray = [Question](repeatElement(sampleQuestion, count: 10))
-
