@@ -138,14 +138,14 @@ struct QuizCode {
     """
     
     private static let q9 = """
-    let array = [1,2,3,4,5]
-    
     let serial = DispatchQueue(label: "serial")
-    
+    var array = [1,2,3,4,5]
+
     serial.async {
         for i in array {
             serial.async {
                 for j in array {
+                    array.append(i * j)
                     print(i * j)
                 }
             }
