@@ -14,6 +14,7 @@ struct Question: Decodable {
     var code: String
     let answers: [String]
     let correctAnswer: Int
+    let explanation: String
     
     static func questionsArray() -> [Question] {
         guard let url = Bundle.main.url(forResource: "quiz", withExtension: "json") else { fatalError("Missing bundle data") }
