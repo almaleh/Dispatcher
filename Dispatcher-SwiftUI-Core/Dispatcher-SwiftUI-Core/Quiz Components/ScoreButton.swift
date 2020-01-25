@@ -31,13 +31,25 @@ struct ScoreButton: View {
     }
     
     func scoreImage(for question: Int) -> AnyView {
+        
+        var green = Color.green
+        var red = Color.red
+        
+        #if os(iOS)
+            green = Color(UIColor.systemGreen)
+            red = Color(UIColor.systemRed)
+        #elseif os(OSX)
+            green = Color(NSColor.systemGreen)
+            red = Color(NSColor.systemRed)
+        #endif
+        
         let correct = quizProcessor.score[question] ?? false
         if correct {
             return AnyView(Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(Color(UIColor.systemGreen)))
+                .foregroundColor(green))
         } else {
             return AnyView(Image(systemName: "xmark.circle.fill")
-                .foregroundColor(Color(UIColor.systemRed)))
+                .foregroundColor(red))
         }
     }
 }

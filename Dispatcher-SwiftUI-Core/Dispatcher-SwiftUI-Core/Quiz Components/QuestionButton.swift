@@ -16,11 +16,28 @@ struct QuestionButton: View {
     let id: Int
     
     var foreground: Color {
-        return selectedAnswer == id ? .white : Color(UIColor.label)
+        var color = Color.white
+        #if os(iOS)
+            color = Color(UIColor.label)
+        #elseif os(OSX)
+            color = Color(NSColor.labelColor)
+        #endif
+        return selectedAnswer == id ? .white : color
     }
     
     var background: Color {
-        return selectedAnswer == id ? Color(UIColor.systemGray) : Color(UIColor.systemGray6)
+        var darkGray = Color.white
+        var lightGray = Color.white
+        
+        #if os(iOS)
+            darkGray = Color(UIColor.systemGray)
+            lightGray = Color(UIColor.systemGray6)
+        #elseif os(OSX)
+            darkGray = Color(NSColor.selectedTextBackgroundColor)
+            lightGray = Color(NSColor.systemGray)
+        #endif
+        
+        return selectedAnswer == id ? darkGray : lightGray
     }
     
     var body: some View {

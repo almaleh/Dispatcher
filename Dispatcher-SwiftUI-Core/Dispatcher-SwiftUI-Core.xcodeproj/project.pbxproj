@@ -404,16 +404,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.besher.Dispatcher-SwiftUI-Core";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				"SDKROOT[arch=*]" = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 			};
 			name = Debug;
 		};
 		2821053B23DCDC3500BD191C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -429,9 +432,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.besher.Dispatcher-SwiftUI-Core";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				"SDKROOT[arch=*]" = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"VALID_ARCHS[sdk=*]" = "i386 x86_64";
 			};
 			name = Release;
 		};

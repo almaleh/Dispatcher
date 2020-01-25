@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28E6418E23D1699000C7A860"
                BuildableName = "Dispatcher.app"
-               BlueprintName = "Dispatcher"
-               ReferencedContainer = "container:Dispatcher.xcodeproj">
+               BlueprintName = "Dispatcher-iOS"
+               ReferencedContainer = "container:Dispatcher-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E6418E23D1699000C7A860"
             BuildableName = "Dispatcher.app"
-            BlueprintName = "Dispatcher"
-            ReferencedContainer = "container:Dispatcher.xcodeproj">
+            BlueprintName = "Dispatcher-iOS"
+            ReferencedContainer = "container:Dispatcher-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E6418E23D1699000C7A860"
             BuildableName = "Dispatcher.app"
-            BlueprintName = "Dispatcher"
-            ReferencedContainer = "container:Dispatcher.xcodeproj">
+            BlueprintName = "Dispatcher-iOS"
+            ReferencedContainer = "container:Dispatcher-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
