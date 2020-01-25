@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Dispatcher_SwiftUI_Core
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

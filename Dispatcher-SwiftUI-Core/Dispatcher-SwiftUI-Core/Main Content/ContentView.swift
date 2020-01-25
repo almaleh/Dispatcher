@@ -8,11 +8,11 @@
 
 import SwiftUI
 
-struct ContentView: View {
+public struct ContentView: View {
     
     @State private var didStart = true
     
-    var body: some View {
+    public var body: some View {
         TabView {
             DiagramView(didStart: $didStart)
                 .tabItem {
@@ -20,13 +20,14 @@ struct ContentView: View {
                     Text("Explanation")
             }
             QuizView()
-//                QuestionView(questionNumber: 0, question: sampleQuestion)
                 .tabItem {
                     Image(systemName: "text.badge.checkmark")
                     Text("Quiz")
             }
         }
     }
+    
+    public init() {}
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -17,7 +17,7 @@ struct Question: Decodable {
     let explanation: String
     
     static func questionsArray() -> [Question] {
-        guard let url = Bundle.main.url(forResource: "quiz", withExtension: "json") else { fatalError("Missing bundle data") }
+        guard let url = Bundle.main.url(forResource: "Frameworks/Dispatcher_SwiftUI_Core.framework/quiz", withExtension: "json") else { fatalError("Missing bundle data") }
         guard let data = try? Data(contentsOf: url) else { fatalError("Missing bundle data") }
         
         let decoder = JSONDecoder()
