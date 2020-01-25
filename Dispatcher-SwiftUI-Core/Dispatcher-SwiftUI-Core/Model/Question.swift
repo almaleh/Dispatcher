@@ -21,7 +21,10 @@ struct Question: Decodable {
 //        let macPrefix = "Contents/Frameworks/Dispatcher_SwiftUI_Core.framework/Resources/quiz.json"
 //        let macURL = Bundle.main.bundleURL.appendingPathComponent(macPrefix)
         
-        guard let iOSURL = Bundle.main.url(forResource: "Frameworks/Dispatcher_SwiftUI_Core.framework/quiz", withExtension: "json") else { fatalError("Missing bundle data") }
+        guard let url = Bundle(identifier: "com.besher.Dispatcher-SwiftUI-Core")?.bundleURL else {  fatalError("Missing bundle data") }
+        
+        let iOSURL = url.appendingPathComponent("quiz.json")
+        
         guard let data = try? Data(contentsOf: iOSURL) else { fatalError("Missing bundle data") }
         
         let decoder = JSONDecoder()

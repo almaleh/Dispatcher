@@ -29,11 +29,11 @@ enum TaskGenerator {
         tasks.append(Task(.statement(.sync), syncStart, duration))
         tasks.append(Task(.workBlock(.red, emojis.removeFirst()), syncStart, duration))
         
-        let asyncStartStatement1 = Date().addingTimeInterval(syncStartDelay + duration) + statementPause
         let asyncStartBlock1 = Date().addingTimeInterval(syncStartDelay + duration)
         tasks.append(Task(.workBlock(.purple, emojis.removeFirst()), Date(), asyncStartBlock1, duration))
         
-        tasks.append(Task(.statement(.done), asyncStartStatement1 + duration - shortPause, duration))
+        let doneStatement = Date().addingTimeInterval(syncStartDelay + duration) + statementPause
+        tasks.append(Task(.statement(.done), doneStatement + duration - shortPause, duration))
         
         return tasks
     }
