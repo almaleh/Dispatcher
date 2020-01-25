@@ -12,12 +12,12 @@ struct ScoreButton: View {
     
     let index: Int
     let quizProcessor: QuizProcessor
-    @State private var explanationPresented = false
+    let action: (() -> Void)
     
     var body: some View {
         
         Button(action: {
-            self.explanationPresented = true
+            self.action()
         }) {
             HStack {
                 Text("Q\(index + 1)")
@@ -26,9 +26,6 @@ struct ScoreButton: View {
             }
             .font(.system(size: 22))
             .frame(maxWidth: 75)
-        }
-        .alert(isPresented: self.$explanationPresented) {
-            Alert(title: Text("Question \(index + 1)"), message: Text(quizProcessor.questionsArray[index].explanation))
         }
         
     }
@@ -49,6 +46,7 @@ struct ScoreButton_Previews: PreviewProvider {
     static var previews: some View {
         
         ScoreButton(index: 0,
-                    quizProcessor: QuizScoreSheet_Previews.sampleQuiz)
+                    quizProcessor: QuizScoreSheet_Previews.sampleQuiz,
+                    action: {})
     }
 }

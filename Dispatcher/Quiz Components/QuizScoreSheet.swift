@@ -12,10 +12,11 @@ struct QuizScoreSheet: View {
     
     @Binding var quizProcessor: QuizProcessor
     @Binding var isPresented: Bool
+    @State private var explanationPresented = false
     
     var body: some View {
         VStack (spacing: 10) {
-            Text("The GCD Quiz")
+            Text("The Concurrency Quiz")
                 .font(.largeTitle)
             Text("Your final score is...")
                 .font(.title)
@@ -56,15 +57,27 @@ struct QuizScoreSheet: View {
         VStack (spacing: 20) {
             Text("Tap on questions for explanation")
             ForEach(0..<quizProcessor.questionsArray.count / 2) { row in
-                
+
                 HStack (spacing: 90) {
-                    ScoreButton(index: row * 2, quizProcessor: self.quizProcessor)
-                    ScoreButton(index: row * 2 + 1, quizProcessor: self.quizProcessor)
+                    ScoreButton(index: row * 2, quizProcessor: self.quizProcessor) {
+                        self.quizProcessor.explain(question: row * 2 + 1)
+                        self.explanationPresented = true
+                    }
+                    ScoreButton(index: row * 2 + 1, quizProcessor: self.quizProcessor) {
+                        self.quizProcessor.explain(question: row * 2 + 2)
+                        self.explanationPresented = true
+                    }
                 }
             }
         }
         .padding(.bottom, 10)
+        .sheet(isPresented: $explanationPresented) {
+            QuestionContainer(quizProcessor: self.$quizProcessor,
+                              isPresented: .constant(false),
+                              explanation: self.$explanationPresented)
+        }
     }
+    
 }
 
 struct QuizScoreSheet_Previews: PreviewProvider {

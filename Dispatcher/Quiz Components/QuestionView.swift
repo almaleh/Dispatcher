@@ -10,16 +10,32 @@ import SwiftUI
 
 struct QuestionContainer: View {
     
-    @State private var quizProcessor = QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)
+    @Binding var quizProcessor: QuizProcessor
     @Binding var isPresented: Bool
+    
+    // explains question after quiz is over
+    @Binding var explanation: Bool
+    
+    init(quizProcessor: Binding<QuizProcessor>, isPresented: Binding<Bool>, explanation: Binding<Bool>) {
+        self._quizProcessor = quizProcessor
+        self._isPresented = isPresented
+        self._explanation = explanation
+        
+        // ensure quiz is reset every launch
+        if !explanation.wrappedValue {
+            self.quizProcessor = QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)
+        }
+    }
     
     var body: some View {
         Group {
-            if quizProcessor.questionNumber > quizProcessor.questionsArray.count {
+            if explanation {
+                QuestionView(explanation: $explanation, quizProcessor: $quizProcessor)
+            } else if quizProcessor.quizOver {
                 QuizScoreSheet(quizProcessor: $quizProcessor,
                                isPresented: $isPresented)
             } else {
-                QuestionView(quizProcessor: $quizProcessor)
+                QuestionView(explanation: .constant(false), quizProcessor: $quizProcessor)
             }
         }
     }
@@ -33,6 +49,7 @@ struct QuestionView: View {
     private var question: Question { quizProcessor.question }
     private var answers: [String] { question.answers }
     
+    @Binding var explanation: Bool
     @Binding var quizProcessor: QuizProcessor
     
     var body: some View {
@@ -56,6 +73,17 @@ struct QuestionView: View {
                     .cornerRadius(4)
             }
             Spacer(minLength: 0)
+            if explanation {
+                explanationStack
+            } else {
+                answerStack
+            }
+        }
+        .padding()
+    }
+    
+    var answerStack: some View {
+        Group {
             VStack (spacing: 10) {
                 ForEach(0..<answers.count, id: \.self) { idx in
                     QuestionButton(label: self.answers[idx],
@@ -70,12 +98,28 @@ struct QuestionView: View {
             .opacity(answerWasSelected ? 1.0 : 0.0)
             .font(.title)
         }
-        .padding()
+    }
+    
+    var explanationStack: some View {
+        VStack (spacing: 20) {
+            Text("Correct answer is: ")
+            Text(question.answers[question.correctAnswer])
+                .font(.headline)
+                .padding(.bottom, 20)
+            Text(question.explanation)
+            Spacer()
+            Button("Dismiss") {
+                self.explanation = false
+            }
+        }
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: 330)
     }
 }
 
 struct QuizStartScreen_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView(quizProcessor: .constant(QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)))
+        QuestionView(explanation: .constant(true),
+                     quizProcessor: .constant(QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)))
     }
 }

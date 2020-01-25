@@ -108,7 +108,7 @@
             "Causes priority inversion"
         ],
         "correct_answer": 3,
-        "explanation": "Arrays are not thread safe, and modifying them from another thread is can introduce race contidions."
+        "explanation": "Arrays are not thread safe, and modifying them from another thread can introduce race contidions."
     }, 
     {
         "number": 9,

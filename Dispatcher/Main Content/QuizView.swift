@@ -12,6 +12,7 @@ struct QuizView: View {
     
     @State private var quizPresented: Bool = false
     @State private var articlePresented: Bool = false
+    @State private var quizProcessor = QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)
     
     var body: some View {
         startScreen
@@ -23,7 +24,7 @@ struct QuizView: View {
             Text("Welcome to \nthe GCD Quiz!")
                 .multilineTextAlignment(.center)
                 .font(.largeTitle)
-            Text("This ia companion app to my article on concurrency.")
+            Text("This is a companion app to my article on concurrency.")
                 .multilineTextAlignment(.center)
                 Text("I suggest trying the quiz before and then after reading the article to see how your score changes")
                 .multilineTextAlignment(.center)
@@ -32,7 +33,9 @@ struct QuizView: View {
             }
             .font(.title)
             .sheet(isPresented: $quizPresented) {
-                QuestionContainer(isPresented: self.$quizPresented)
+                QuestionContainer(quizProcessor: self.$quizProcessor,
+                                  isPresented: self.$quizPresented,
+                                  explanation: .constant(false))
             }
             Spacer()
             Button("Read Article") {

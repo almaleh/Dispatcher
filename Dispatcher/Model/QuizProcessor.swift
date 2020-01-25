@@ -10,9 +10,15 @@ import Foundation
 
 struct QuizProcessor {
     let questionsArray: [Question]
-    var question: Question { questionsArray[questionNumber - 1] }
+    var question: Question {
+        guard questionNumber - 1 < questionsArray.count else {
+            return questionsArray[questionsArray.count - 1]
+        }
+        return questionsArray[questionNumber - 1]
+    }
     var questionNumber: Int
     var score = [Int: Bool]()
+    var quizOver = false
     
     var totalScore: Int {
         score.reduce(0) {
@@ -24,6 +30,11 @@ struct QuizProcessor {
     mutating func answered(with answer: Int) {
         let correct = answer == question.correctAnswer
         score[questionNumber] = correct
+        if questionNumber >= questionsArray.count { quizOver = true }
         questionNumber += 1
+    }
+    
+    mutating func explain(question: Int) {
+        questionNumber = question
     }
 }
