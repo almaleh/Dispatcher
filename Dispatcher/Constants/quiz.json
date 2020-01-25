@@ -1,41 +1,140 @@
 [
     {
+        "number": 1,
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [ 
-            "Loop A finishes first", 
-            "Loop B finishes first",
+            "Both loops print concurrently", 
+            "5 diamonds are printed, followed by 5 hearts",
+            "Does not compile",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 1
+    }, 
+    {
+        "number": 2,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Loop A always finishes first", 
+            "Loop B always finishes first",
             "Order is not guaranteed", 
             "Does not compile",
-            "Crashes due to race condition",
-            "Crahes due to deadlock"
+            "Causes race condition"
         ],
         "correct_answer": 2
     }, 
     {
+        "number": 3,
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [ 
-            "Loop A finishes first", 
-            "Loop B finishes first",
-            "Order is not guaranteed", 
+            "All loops print concurrently", 
+            "It prints numbers 1 through 5, followed by 5 diamonds, followed by 5 hearts",
             "Does not compile",
-            "Crashes due to race condition",
-            "Crahes due to deadlock"
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 1
+    }, 
+    {
+        "number": 4,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [  
+            "It runs without issues", 
+            "It runs UI code on background thread",
+            "Does not compile",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 4
+    }, 
+    {
+        "number": 5,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "It will always print four moons before four suns", 
+            "It will always print four suns before four moons",
+            "The order is not guaranteed",
+            "Does not compile",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
         ],
         "correct_answer": 2
     }, 
     {
+        "number": 6,
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [ 
-            "Loop A finishes first", 
-            "Loop B finishes first",
-            "Order is not guaranteed", 
-            "Does not compile",
-            "Crashes due to race condition",
-            "Crahes due to deadlock"
+            "processImage(data:) will always return nil", 
+            "Does not compile: cannot convert DispatchQueue to UIImage?",
+            "processImage(data:) returns the tinted image as intended",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
         ],
         "correct_answer": 2
+    }, 
+    {
+        "number": 7,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Five cows are printed, followed by five dogs", 
+            "Both loops will run concurrently, order not guaranteed",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 1
+    }, 
+    {
+        "number": 8,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Prints 1 through 5, then 0 through 9", 
+            "Prints 0 through 9",
+            "Order of printed digits is not guaranteed",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 3
+    }, 
+    {
+        "number": 9,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Results are always printed in the same order"
+            "Order of printed results is not guaranteed",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 0
+    }, 
+    {
+        "number": 10,
+        "question": "What is the outcome of this code?",
+        "code": "",
+        "answers": [ 
+            "Prints 1 through 30 in order",
+            "Prints 11 through 20, then 1 through 10, then 21 through 30",
+            "Order of printed digits is not guaranteed",
+            "Causes race condition",
+            "Crahes because of deadlock", 
+            "Causes priority inversion"
+        ],
+        "correct_answer": 0
     }
 ]
