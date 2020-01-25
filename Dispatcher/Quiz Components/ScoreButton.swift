@@ -22,7 +22,7 @@ struct ScoreButton: View {
             HStack {
                 Text("Q\(index + 1)")
                 Spacer(minLength: 0)
-                self.scoreImage(for: index)
+                self.scoreImage(for: index + 1)
             }
             .font(.system(size: 22))
             .frame(maxWidth: 75)
@@ -37,10 +37,10 @@ struct ScoreButton: View {
         let correct = quizProcessor.score[question] ?? false
         if correct {
             return AnyView(Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green))
+                .foregroundColor(Color(UIColor.systemGreen)))
         } else {
             return AnyView(Image(systemName: "xmark.circle.fill")
-                .foregroundColor(.red))
+                .foregroundColor(Color(UIColor.systemRed)))
         }
     }
 }

@@ -25,7 +25,7 @@ struct WorkBlock: View {
     var body: some View {
         return ZStack {
             color
-                .frame(width: 60, height: 150 * progress)
+                .frame(width: 60, height: 120 * progress)
                 .border(Color.yellow.opacity(borderOpacity), width: 3)
                 .onAppear {
                     self.startTask()

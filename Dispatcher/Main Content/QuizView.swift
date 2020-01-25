@@ -11,6 +11,7 @@ import SwiftUI
 struct QuizView: View {
     
     @State private var quizPresented: Bool = false
+    @State private var articlePresented: Bool = false
     
     var body: some View {
         startScreen
@@ -22,7 +23,9 @@ struct QuizView: View {
             Text("Welcome to \nthe GCD Quiz!")
                 .multilineTextAlignment(.center)
                 .font(.largeTitle)
-            Text("I suggest trying the quiz before and then after reading the article to see if your score changes")
+            Text("This ia companion app to my article on concurrency.")
+                .multilineTextAlignment(.center)
+                Text("I suggest trying the quiz before and then after reading the article to see how your score changes")
                 .multilineTextAlignment(.center)
             Button("Start Quiz") {
                 self.quizPresented = true
@@ -33,9 +36,12 @@ struct QuizView: View {
             }
             Spacer()
             Button("Read Article") {
-                // TODO add article URL
+                self.articlePresented = true
             }
             .font(.headline)
+            .alert(isPresented: self.$articlePresented) {
+                Alert(title: Text("Coming soon!"))
+            }
             Text("by Besher Al Maleh")
         }
     .padding()

@@ -41,18 +41,20 @@ struct QuestionView: View {
             Text(question.question)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text(question.code)
-                .foregroundColor(.white)
-                .lineSpacing(3)
-                .font(.system(size: 14, design: .monospaced))
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: 500, minHeight: 200)
-                .padding([.leading, .trailing, .bottom])
-                .background(
-                    Color.black.brightness(0.2)
-                        .border(Color.black, width: 2)
-            )
-                .cornerRadius(4)
+            ScrollView {
+                Text(question.code)
+                    .foregroundColor(.white)
+                    .lineSpacing(3)
+                    .font(.system(size: 14, design: .monospaced))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: 500)
+                    .padding([.leading, .trailing, .bottom])
+                    .background(
+                        Color.black.brightness(0.2)
+                            .border(Color.black, width: 2)
+                )
+                    .cornerRadius(4)
+            }
             Spacer(minLength: 0)
             VStack (spacing: 10) {
                 ForEach(0..<answers.count, id: \.self) { idx in

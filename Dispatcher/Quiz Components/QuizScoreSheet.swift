@@ -14,13 +14,19 @@ struct QuizScoreSheet: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        VStack (spacing: 20) {
-            Text("Final Score")
+        VStack (spacing: 10) {
+            Text("The GCD Quiz")
                 .font(.largeTitle)
+            Text("Your final score is...")
+                .font(.title)
             Text("\(quizProcessor.totalScore)/\(quizProcessor.questionsArray.count)")
                 .font(.title)
+            
+            Spacer(minLength: 0)
+            image
             Spacer(minLength: 0)
             scores
+            Spacer(minLength: 0)
             Button("Dismiss") {
                 self.isPresented = false
             }
@@ -29,8 +35,25 @@ struct QuizScoreSheet: View {
         .padding()
     }
     
+    var image: some View {
+        let imageName: String
+        switch quizProcessor.totalScore {
+        case 10: imageName = "top"
+        case 8...9: imageName = "high"
+        default: imageName = "low"
+        }
+        return GeometryReader { proxy in
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: proxy.size.width * 0.75)
+                .frame(maxHeight: proxy.size.height)
+                .clipped()
+        }
+    }
+    
     var scores: some View {
-        VStack (spacing: 30) {
+        VStack (spacing: 20) {
             Text("Tap on questions for explanation")
             ForEach(0..<quizProcessor.questionsArray.count / 2) { row in
                 
@@ -40,19 +63,19 @@ struct QuizScoreSheet: View {
                 }
             }
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 10)
     }
 }
 
 struct QuizScoreSheet_Previews: PreviewProvider {
     
-    static var sampleQuiz: QuizProcessor = {
+    static let sampleQuiz: QuizProcessor = {
         
         var quiz = QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)
         
         quiz.score = [
-            1: true, 2: true, 3: true, 4: false, 5: false,
-            6: true, 7: false, 8: false, 9: true , 10: false
+            1: true, 2: true, 3: true, 4: true, 5: true,
+            6: true, 7: true, 8: false, 9: false , 10: false
         ]
         
         return quiz

@@ -107,9 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				28A0B77C23DA991F00177699 /* QuestionView.swift */,
-				28A0B78C23DCAEA700177699 /* ScoreButton.swift */,
-				28A0B78423DBD15500177699 /* QuizScoreSheet.swift */,
 				28A0B78023DAACFD00177699 /* QuestionButton.swift */,
+				28A0B78423DBD15500177699 /* QuizScoreSheet.swift */,
+				28A0B78C23DCAEA700177699 /* ScoreButton.swift */,
 			);
 			path = "Quiz Components";
 			sourceTree = "<group>";
