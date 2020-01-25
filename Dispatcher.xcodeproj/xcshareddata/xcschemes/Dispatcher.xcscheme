@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28E6418E23D1699000C7A860"
-               BuildableName = "Grand Dispatcher.app"
+               BuildableName = "Dispatcher.app"
                BlueprintName = "Dispatcher"
                ReferencedContainer = "container:Dispatcher.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E6418E23D1699000C7A860"
-            BuildableName = "Grand Dispatcher.app"
+            BuildableName = "Dispatcher.app"
             BlueprintName = "Dispatcher"
             ReferencedContainer = "container:Dispatcher.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28E6418E23D1699000C7A860"
-            BuildableName = "Grand Dispatcher.app"
+            BuildableName = "Dispatcher.app"
             BlueprintName = "Dispatcher"
             ReferencedContainer = "container:Dispatcher.xcodeproj">
          </BuildableReference>
