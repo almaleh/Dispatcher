@@ -10,4 +10,6 @@ The app has a 10-question quiz that tests your concurrency knowledge. I suggest 
 
 There is also a visual explanation of synchronous and asynchronous execution, and serial and concurrent queues. 
 
-<p align="center"><img src="https://github.com/almaleh/Drawing-Performance/blob/master/Screenshots/drawingPerformance.gif" width="500"></p>
+<p align="center"><img src="https://github.com/almaleh/Dispatcher/blob/master/Github-Images/concurrent.gif" width="400"></p>
+
+<p align="center"><img src="https://github.com/almaleh/Dispatcher/blob/master/Github-Images/async.gif" width="400"></p>
