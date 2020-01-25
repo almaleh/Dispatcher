@@ -36,7 +36,7 @@ struct QuestionView: View {
     @Binding var quizProcessor: QuizProcessor
     
     var body: some View {
-        VStack (alignment: .center, spacing: 20) {
+        VStack (alignment: .center, spacing: 10) {
             Text("Question \(quizProcessor.questionNumber)/10")
             Text(question.question)
                 .font(.headline)
@@ -53,13 +53,14 @@ struct QuestionView: View {
                         .border(Color.black, width: 2)
             )
                 .cornerRadius(4)
+            Spacer(minLength: 0)
             VStack (spacing: 10) {
                 ForEach(0..<answers.count, id: \.self) { idx in
                     QuestionButton(label: self.answers[idx],
                                    selectedAnswer: self.$selectedAnswer, id: idx)
                 }
             }
-            Spacer()
+            .padding([.bottom], 10)
             Button("Confirm") {
                 self.quizProcessor.answered(with: self.selectedAnswer ?? 0)
                 self.selectedAnswer = nil

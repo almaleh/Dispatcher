@@ -9,11 +9,15 @@
 import Foundation
 
 struct QuizCode {
+    private init(){}
     
-    static let list: [String] = [q1, q2, q3]
+    static let list: [String] = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
     
     private static let q1 = """
-    let concurrent = DispatchQueue(label: "concurrent", attributes: .concurrent)
+                                                                                        
+    let concurrent = DispatchQueue(
+                    label: "concurrent",
+                    attributes: .concurrent)
     
     concurrent.sync {
         for _ in 0..<5 { print("♦️") }
@@ -25,6 +29,7 @@ struct QuizCode {
     """
     
     private static let q2 = """
+                                                                                        
     let array = Array(51...70)
     
     DispatchQueue.global().async {
@@ -43,50 +48,50 @@ struct QuizCode {
     """
     
     private static let q3 = """
-
-    let concurrent = DispatchQueue(label: "concurrent", attributes: .concurrent)
+                                                                                        
+    let concurrent = DispatchQueue(
+                    label: "concurrent",
+                    attributes: .concurrent)
     
     concurrent.async {
-        
         for i in 1...5 {
             print(i)
         }
-        
         for _ in 1...5 {
             print("♦️")
         }
-        
         for _ in 1...5 {
             print("♥️")
         }
     }
-
     """
     
     private static let q4 = """
-    class ViewController: UIViewController {
-        var textLabel: UILabel = UILabel()
-        override func viewDidLoad() {
-    
-            let index = 55
-            let text = "Fibbonacci Number at \(index) is equal to "
-    
-            DispatchQueue.global().sync {
-                // calculateFibonnaci(at:) is unoptimized, requires several seconds
-                let fibonnacci: Int = calculcateFibonacci(at: index)
-    
-                DispatchQueue.main.sync {
-                    self.textLabel.text = text + String(fibonnacci)
-                }
+                                                                                        
+    var label: UILabel = UILabel()
+
+    override func viewDidLoad() {
+
+        let idx = 55
+
+        DispatchQueue.global().sync {
+            let fibo = fibonnacci(at: idx)
+
+            DispatchQueue.main.sync {
+                self.label.text = String(fibo)
             }
         }
     }
+
+    func fibonnacci(at: Int) -> Int {...}
     """
     
     private static let q5 = """
+                                                                                        
     DispatchQueue.global().async {
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos:
+        .userInteractive).async {
             print("🌙🌙🌙🌙")
         }
         
@@ -95,20 +100,26 @@ struct QuizCode {
     """
     
     private static let q6 = """
-    let serialQueue = DispatchQueue(label: "serial")
+                                                                                        
+    let serial = DispatchQueue(label: "serial")
     
-    func processImage(data: Data) -> UIImage? {
-        guard let image = UIImage(data: data) else { return nil }
-        
+    func processImage(data: Data)
+        -> UIImage? {
+        guard let image = UIImage(data:
+                          data) else
+        {
+            return nil
+        }
         return serialQueue.sync {
             tint(image: image)
         }
     }
 
-    func tint(image: UIImage) -> UIImage { ... }
+    func tint(image: UIImage) -> UIImage {...}
     """
     
     private static let q7 = """
+                                                                                        
     let serial1 = DispatchQueue(label: "serial1")
     let serial2 = DispatchQueue(label: "serial2")
     
@@ -122,6 +133,7 @@ struct QuizCode {
     """
     
     private static let q8 = """
+                                                                                        
     var array = [1,2,3,4,5]
 
     DispatchQueue.global().async {
@@ -138,6 +150,7 @@ struct QuizCode {
     """
     
     private static let q9 = """
+                                                                                        
     let serial = DispatchQueue(label: "serial")
     var array = [1,2,3,4,5]
 
@@ -154,20 +167,19 @@ struct QuizCode {
     """
     
     private static let q10 = """
+                                                                                        
     let serial = DispatchQueue(label: "serial")
-    
+
     serial.async {
         for i in 1...10 {
             print(i)
         }
     }
-    
     serial.sync {
         for i in 11...20 {
             print(i)
         }
     }
-    
     serial.async {
         for i in 21...30 {
             print(i)

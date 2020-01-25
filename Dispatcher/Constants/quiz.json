@@ -5,11 +5,10 @@
         "code": "",
         "answers": [ 
             "Both loops print concurrently", 
-            "5 diamonds are printed, followed by 5 hearts",
+            "Prints 5 diamonds followed by 5 hearts",
             "Does not compile",
             "Causes race condition",
             "Crahes because of deadlock", 
-            "Causes priority inversion"
         ],
         "correct_answer": 1,
         "explanation": "Sync blocks the caller, therefore we do not reach the second loop until the sync task is completed."
@@ -33,12 +32,11 @@
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [ 
-            "All loops print concurrently", 
-            "It prints numbers 1 through 5, followed by 5 diamonds, followed by 5 hearts",
+            "Loops will print concurrently, order not guaranteed", 
+            "Prints 1 through 5 then 5 diamonds then 5 hearts",
             "Does not compile",
             "Causes race condition",
-            "Crahes because of deadlock", 
-            "Causes priority inversion"
+            "Crahes because of deadlock",
         ],
         "correct_answer": 1,
         "explanation": "Code inside a single task will always execute in order, line by line."
@@ -48,12 +46,11 @@
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [  
-            "It runs without issues", 
-            "It runs UI code on background thread",
+            "Runs without issues",
+            "Runs UI code on background thread",
             "Does not compile",
             "Causes race condition",
-            "Crahes because of deadlock", 
-            "Causes priority inversion"
+            "Crahes because of deadlock"
         ],
         "correct_answer": 4,
         "explanation": "Calling sync on the current queue results in a deadlock. In this case we chained several sync calls that lead back to the original queue."
@@ -63,13 +60,10 @@
         "question": "What is the outcome of this code?",
         "code": "",
         "answers": [ 
-            "It will always print four moons before four suns", 
-            "It will always print four suns before four moons",
+            "Will always print 4 moons before 4 suns",
+            "Will always print 4 suns before 4 moons",
             "The order is not guaranteed",
             "Does not compile",
-            "Causes race condition",
-            "Crahes because of deadlock", 
-            "Causes priority inversion"
         ],
         "correct_answer": 2,
         "explanation": "The system does not guarantee when async tasks will execute. Tasks with higher QoS generally start first, but this is not guaranteed."
@@ -82,9 +76,7 @@
             "processImage(data:) will always return nil", 
             "Does not compile: cannot convert DispatchQueue to UIImage?",
             "processImage(data:) returns the tinted image as intended",
-            "Causes race condition",
-            "Crahes because of deadlock", 
-            "Causes priority inversion"
+            "Crahes because of deadlock",
         ],
         "correct_answer": 2,
         "explanation": "Unlike async, it is perfectly fine to directly return a value from a sync task."
@@ -140,9 +132,7 @@
             "Prints 1 through 30 in order",
             "Prints 11 through 20, then 1 through 10, then 21 through 30",
             "Order of printed digits is not guaranteed",
-            "Causes race condition",
-            "Crahes because of deadlock", 
-            "Causes priority inversion"
+            "Crahes because of deadlock"
         ],
         "correct_answer": 0,
         "explanation": "Serial queues always run their tasks in order regardless of how you dispatch the task."

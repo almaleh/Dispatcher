@@ -29,8 +29,9 @@ struct QuestionButton: View {
         }) {
             Text(self.label)
                 .foregroundColor(foreground)
-                .padding(8)
-                .frame(minWidth: 300)
+                .multilineTextAlignment(.center)
+                .padding(10)
+                .frame(maxWidth: 340)
                 .background(background)
                 .cornerRadius(12)
         }
@@ -38,7 +39,11 @@ struct QuestionButton: View {
 }
 
 struct QuestionButton_Previews: PreviewProvider {
+    
+    static let testLabel = "Does not compile: cannot convert DispatchQueue to UIImage?"
+    
     static var previews: some View {
-        QuestionButton(label: "Test", selectedAnswer: .constant(0), id: 0)
+        QuestionButton(label: "Does not compile: cannot convert DispatchQueue to UIImage?",
+                       selectedAnswer: .constant(0), id: 0)
     }
 }

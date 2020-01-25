@@ -180,8 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				287B40AC23D7DD39005960B5 /* Explanations.swift */,
-				28A0B78623DBD86300177699 /* quiz.json */,
 				28A0B78A23DBE14400177699 /* QuizCode.swift */,
+				28A0B78623DBD86300177699 /* quiz.json */,
 			);
 			path = Constants;
 			sourceTree = "<group>";

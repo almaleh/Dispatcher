@@ -29,7 +29,7 @@ enum TaskType {
         }
     }
     
-    // remains on queue while thread is shared
+    // invisible thread remains on queue while real thread is shared
     var isShadowThreadTask: Bool {
         if case .workBlock(.purple, _) = self {
             return true

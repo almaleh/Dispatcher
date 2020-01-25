@@ -20,6 +20,11 @@ struct QuizScoreSheet: View {
             Text("\(quizProcessor.totalScore)/10")
                 .font(.title)
             Spacer()
+            // TODO add list of questions, green or false based on answers
+//            ForEach() {
+//                
+//            }
+            
             Button("Dismiss") {
                 self.isPresented = false
             }
