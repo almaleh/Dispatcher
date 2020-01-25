@@ -30,7 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2850F6AC23DCE3150015C892 /* Dispatcher-MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dispatcher-MacOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2850F6AC23DCE3150015C892 /* Dispatcher-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dispatcher-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2850F6AF23DCE3160015C892 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2850F6B323DCE3170015C892 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2850F6B623DCE3170015C892 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		2850F6AD23DCE3150015C892 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2850F6AC23DCE3150015C892 /* Dispatcher-MacOS.app */,
+				2850F6AC23DCE3150015C892 /* Dispatcher-macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,9 +103,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2850F6AB23DCE3150015C892 /* Dispatcher-MacOS */ = {
+		2850F6AB23DCE3150015C892 /* Dispatcher-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2850F6BF23DCE3170015C892 /* Build configuration list for PBXNativeTarget "Dispatcher-MacOS" */;
+			buildConfigurationList = 2850F6BF23DCE3170015C892 /* Build configuration list for PBXNativeTarget "Dispatcher-macOS" */;
 			buildPhases = (
 				2850F6A823DCE3150015C892 /* Sources */,
 				2850F6A923DCE3150015C892 /* Frameworks */,
@@ -116,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = "Dispatcher-MacOS";
+			name = "Dispatcher-macOS";
 			productName = "Dispatcher-MacOS";
-			productReference = 2850F6AC23DCE3150015C892 /* Dispatcher-MacOS.app */;
+			productReference = 2850F6AC23DCE3150015C892 /* Dispatcher-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,7 +136,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2850F6A723DCE3150015C892 /* Build configuration list for PBXProject "Dispatcher-MacOS" */;
+			buildConfigurationList = 2850F6A723DCE3150015C892 /* Build configuration list for PBXProject "Dispatcher-macOS" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -149,7 +149,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2850F6AB23DCE3150015C892 /* Dispatcher-MacOS */,
+				2850F6AB23DCE3150015C892 /* Dispatcher-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -352,7 +352,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2850F6A723DCE3150015C892 /* Build configuration list for PBXProject "Dispatcher-MacOS" */ = {
+		2850F6A723DCE3150015C892 /* Build configuration list for PBXProject "Dispatcher-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2850F6BD23DCE3170015C892 /* Debug */,
@@ -361,7 +361,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2850F6BF23DCE3170015C892 /* Build configuration list for PBXNativeTarget "Dispatcher-MacOS" */ = {
+		2850F6BF23DCE3170015C892 /* Build configuration list for PBXNativeTarget "Dispatcher-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2850F6C023DCE3170015C892 /* Debug */,

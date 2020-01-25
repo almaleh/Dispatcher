@@ -8,6 +8,6 @@
       location = "container:/Users/besher/Documents/XCode Projects/Dispatcher/Dispatcher-iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Dispatcher-MacOS/Dispatcher-MacOS.xcodeproj">
+      location = "group:/Users/besher/Documents/XCode Projects/Dispatcher/Dispatcher-MacOS/Dispatcher-macOS.xcodeproj">
    </FileRef>
 </Workspace>
