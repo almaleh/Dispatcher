@@ -7,7 +7,7 @@ This is the companion app to my article on concurrency in iOS
 
 ## How to Install
 
-- Clone the repo and build locally (requires Xcode 11)
+- Clone the repo, open xcworkspace and build locally (requires Xcode 11)
 - [Or download the public beta directly on your device](https://testflight.apple.com/join/2tC0CKMO)
 
 The app runs on iOS 13.0+ (it's in SwiftUI). It's optimized for iPhone X screen or larger, so I recommend not picking something smaller than an iPhone X simulator.

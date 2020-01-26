@@ -56,7 +56,7 @@
 		2850F6A323DCE3150015C892 = {
 			isa = PBXGroup;
 			children = (
-				2850F6AE23DCE3160015C892 /* Dispatcher-MacOS */,
+				2850F6AE23DCE3160015C892 /* Dispatcher-macOS */,
 				2850F6AD23DCE3150015C892 /* Products */,
 				2850F6C823DCE39A0015C892 /* Frameworks */,
 			);
@@ -70,7 +70,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2850F6AE23DCE3160015C892 /* Dispatcher-MacOS */ = {
+		2850F6AE23DCE3160015C892 /* Dispatcher-macOS */ = {
 			isa = PBXGroup;
 			children = (
 				2850F6AF23DCE3160015C892 /* AppDelegate.swift */,
@@ -80,7 +80,7 @@
 				2850F6BC23DCE3170015C892 /* Dispatcher_MacOS.entitlements */,
 				2850F6B523DCE3170015C892 /* Preview Content */,
 			);
-			path = "Dispatcher-MacOS";
+			path = "Dispatcher-macOS";
 			sourceTree = "<group>";
 		};
 		2850F6B523DCE3170015C892 /* Preview Content */ = {
