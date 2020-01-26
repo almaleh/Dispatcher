@@ -102,7 +102,7 @@ struct QuestionView: View {
     
     var explanationStack: some View {
         VStack (spacing: 20) {
-            Text("Correct answer is: ")
+            Text("The correct answer is: ")
             Text(question.answers[question.correctAnswer])
                 .font(.headline)
                 .padding(.bottom, 20)
