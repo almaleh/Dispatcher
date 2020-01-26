@@ -35,8 +35,7 @@
             "Loops will print concurrently, order not guaranteed", 
             "Prints 1 through 5 then 5 diamonds then 5 hearts",
             "Does not compile",
-            "Causes race condition",
-            "Crahes because of deadlock",
+            "Causes race condition"
         ],
         "correct_answer": 1,
         "explanation": "Code inside a single task will always execute in order, line by line."

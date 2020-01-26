@@ -90,7 +90,6 @@ struct QuestionView: View {
                                    selectedAnswer: self.$selectedAnswer, id: idx)
                 }
             }
-            .padding([.bottom], 10)
             Button("Confirm") {
                 self.quizProcessor.answered(with: self.selectedAnswer ?? 0)
                 self.selectedAnswer = nil
@@ -107,7 +106,7 @@ struct QuestionView: View {
                 .font(.headline)
                 .padding(.bottom, 20)
             Text(question.explanation)
-            Spacer()
+            Spacer(minLength: 0)
             Button("Dismiss") {
                 self.explanation = false
             }
@@ -120,7 +119,7 @@ struct QuestionView: View {
 
 struct QuizStartScreen_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView(explanation: .constant(true),
-                     quizProcessor: .constant(QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 1)))
+        QuestionView(explanation: .constant(false),
+                     quizProcessor: .constant(QuizProcessor(questionsArray: Question.questionsArray(), questionNumber: 7)))
     }
 }
