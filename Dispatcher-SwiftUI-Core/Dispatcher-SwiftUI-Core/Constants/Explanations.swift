@@ -20,7 +20,7 @@ struct Explanations {
     """
 
     static let serial = """
-    Serial queues can only use one thread. Execution order is guaranteed.
+    Serial queues do not run on more than one thread at a time. Order is guaranteed.
     """
 
     static let concurrent = """

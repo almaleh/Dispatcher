@@ -121,7 +121,7 @@
             "Causes priority inversion"
         ],
         "correct_answer": 0,
-        "explanation": "Tasks in serial queues are always executed in order. There is no risk of race condition because we're only modifying it from a single thread."
+        "explanation": "Tasks in serial queues are always executed in order. There is no risk of race condition because we're only modifying the array from a single thread."
     }, 
     {
         "number": 10,
