@@ -1,8 +1,10 @@
 # Dispatcher
 
-This is the companion app to article on concurrency in iOS. 
+This is the companion app to article on concurrency in iOS
 
-- [Concurrency Visualized: Sync vs Async, Serial vs Concurrent (Coming soon!)](https://besher.ca)
+[Concurrency Visualized: Sync vs Async, Serial vs Concurrent (Coming soon!)](https://besher.ca)
+
+**[Public beta available here if you don't want to build with Xcode](https://testflight.apple.com/join/2tC0CKMO)**
 
 <i>The app is optimized for iPhone X screen or larger, so I recommend not picking something smaller than an iPhone X simulator.</i>
 
