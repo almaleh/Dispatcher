@@ -30,6 +30,7 @@
 		2821058E23DCDF4D00BD191C /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821055323DCDCB300BD191C /* DiagramView.swift */; };
 		2821058F23DCDF4D00BD191C /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821055423DCDCB300BD191C /* Scheduler.swift */; };
 		2821059023DCDF4D00BD191C /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821055523DCDCB300BD191C /* QuizView.swift */; };
+		28EA325923E49F32003E26EF /* URLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EA325823E49F32003E26EF /* URLConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		2821057E23DCDEFA00BD191C /* CodeConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeConsole.swift; sourceTree = "<group>"; };
 		2821057F23DCDEFA00BD191C /* Subtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subtitles.swift; sourceTree = "<group>"; };
 		2821058023DCDEFA00BD191C /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		28EA325823E49F32003E26EF /* URLConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				2821056523DCDEAA00BD191C /* Explanations.swift */,
 				2821056423DCDEAA00BD191C /* quiz.json */,
 				2821056623DCDEAA00BD191C /* QuizCode.swift */,
+				28EA325823E49F32003E26EF /* URLConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				2821057823DCDED300BD191C /* QuestionButton.swift in Sources */,
 				2821058D23DCDF4D00BD191C /* ContentView.swift in Sources */,
 				2821058723DCDEFA00BD191C /* Queue.swift in Sources */,
+				28EA325923E49F32003E26EF /* URLConstants.swift in Sources */,
 				2821056823DCDEAA00BD191C /* Explanations.swift in Sources */,
 				2821056923DCDEAA00BD191C /* QuizCode.swift in Sources */,
 			);

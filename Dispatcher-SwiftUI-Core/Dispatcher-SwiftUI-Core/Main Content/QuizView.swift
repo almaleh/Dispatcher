@@ -37,12 +37,9 @@ struct QuizView: View {
             }
             Spacer()
             Button("Read the Article") {
-                self.articlePresented = true
+                UIApplication.shared.open(URLConstants.articlePart1)
             }
             .font(.headline)
-            .alert(isPresented: self.$articlePresented) {
-                Alert(title: Text("Coming soon!"))
-            }
             Text("by Besher Al Maleh")
             Text("Don't forget to check the other tab!")
                 .multilineTextAlignment(.center)
