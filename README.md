@@ -2,7 +2,7 @@
 
 This is the companion app to my article on concurrency in iOS
 
-[Concurrency Explained: Sync vs Async, Serial vs Concurrent](https://www.freecodecamp.org/news/ios-concurrency/)
+[Concurrency Explained: Sync vs Async, Serial vs Concurrent](https://medium.com/@almalehdev/concurrency-visualized-part-1-sync-vs-async-c433ff7b3ebe)
 
 
 ## How to Install
